@@ -20,7 +20,7 @@ All photos are in `public/images/`. Each was downloaded already cropped and resi
 
 ## People
 
-Avatar photos for the landlord pages are in `public/images/people/`. Each was downloaded from the Unsplash CDN on 2026-10-29, already face-cropped to 160×160 WebP. They are stand-ins for fictional mock people. The names and roles are invented and have nothing to do with the people photographed.
+Avatar photos for the landlord pages (sidebar, Recent activity, and the Rooms table Tenant column) are in `public/images/people/`. Each was downloaded from the Unsplash CDN on 2026-10-29, already face-cropped to 160×160 WebP. They are stand-ins for fictional mock people. The names and roles are invented and have nothing to do with the people photographed.
 
 | File | Used for | Photographer | Source | License |
 |---|---|---|---|---|
@@ -32,5 +32,32 @@ Avatar photos for the landlord pages are in `public/images/people/`. Each was do
 | `people/suwat.webp` | Suwat T., Chiang Rak 108 | Johm Kann | https://unsplash.com/photos/man-standing-beside-wall-71NgiXcdTzE | Unsplash |
 | `people/thanawat.webp` | Thanawat R., Chiang Rak 206 | Khooi Ahn | https://unsplash.com/photos/a-man-with-a-black-shirt-and-a-black-shirt-8yUPtFNc2sY | Unsplash |
 | `people/wipada.webp` | Wipada C., Chiang Rak 101 | Ba Ba | https://unsplash.com/photos/smiling-woman-in-black-framed-eyeglasses-nxA6AvGqEbY | Unsplash |
+| `people/natcha.webp` | Natcha B. (tenant, Rooms table) | Dinh Nhat Khang | https://unsplash.com/photos/woman-holding-sunglasses-while-carrying-black-backpack-cIC-SNZgvVI | Unsplash |
+| `people/kanokwan.webp` | Kanokwan D. (tenant, Rooms table) | Lan Lin | https://unsplash.com/photos/a-woman-leaning-on-a-railing-9yzmjbUymyM | Unsplash |
+| `people/benjamas.webp` | Benjamas O. (tenant, Rooms table) | Maccy | https://unsplash.com/photos/a-woman-wearing-glasses-sitting-at-a-desk-fFV0IYaDKWw | Unsplash |
+| `people/mintra.webp` | Mintra F. (tenant, Rooms table) | Kenneth Schipper | https://unsplash.com/photos/a-girl-sitting-on-a-chair-smiling-for-the-camera-9VoyW2tqIL8 | Unsplash |
+| `people/arisa.webp` | Arisa V. (tenant, Rooms table) | zhang yazhou | https://unsplash.com/photos/woman-in-white-crew-neck-t-shirt-and-blue-denim-shorts-wearing-black-framed-eyeglasses-sitting-dVQuTZTwQzY | Unsplash |
+| `people/pimchanok.webp` | Pimchanok L. (tenant, Rooms table) | Thanh Duc PHAN | https://unsplash.com/photos/woman-in-white-tank-top-i5R8hbZFDdc | Unsplash |
+| `people/chanya.webp` | Chanya P. (tenant, Rooms table) | Le Minh Phuong | https://unsplash.com/photos/woman-in-white-striped-top-jGZITdFhmts | Unsplash |
+| `people/kanya.webp` | Kanya S. (tenant, Rooms table) | Dynamic Wang | https://unsplash.com/photos/a-woman-in-a-pink-shirt-posing-for-a-picture-_JAAQZ2wt5I | Unsplash |
+| `people/pornthip.webp` | Pornthip R. (tenant, Rooms table) | Rameez Remy | https://unsplash.com/photos/woman-with-red-lipstick-and-black-mascara-BjD63CxMH10 | Unsplash |
+| `people/nattaya.webp` | Nattaya K. (tenant, Rooms table) | Condor Wei | https://unsplash.com/photos/a-woman-with-dark-hair-JCLH7JXSeZs | Unsplash |
+| `people/duangjai.webp` | Duangjai M. (tenant, Rooms table) | Richmond Fajardo | https://unsplash.com/photos/a-woman-leaning-against-a-pole-in-a-park-tt4G2rRvuWg | Unsplash |
+| `people/rattana.webp` | Rattana W. (tenant, Rooms table) | Dang Truong | https://unsplash.com/photos/a-young-girl-smiles-among-others-wSjZRGOTvDg | Unsplash |
+| `people/supitcha.webp` | Supitcha N. (tenant, Rooms table) | Streetwindy | https://unsplash.com/photos/woman-in-black-framed-eyeglasses-leaning-on-blue-metal-railings-xsFspmJ0LoU | Unsplash |
+| `people/thida.webp` | Thida C. (tenant, Rooms table) | Tan Duong | https://unsplash.com/photos/a-woman-smiles-in-soft-warm-light-fBRoULRI3Vw | Unsplash |
+| `people/siwakorn.webp` | Siwakorn T. (tenant, Rooms table) | Arjunsyah | https://unsplash.com/photos/shallow-focus-photography-of-man-in-yellow-crew-neck-shirt-TBUA5KHJn6k | Unsplash |
+| `people/pongsakorn.webp` | Pongsakorn M. (tenant, Rooms table) | Le Thanh Son | https://unsplash.com/photos/a-man-wearing-glasses-and-a-white-shirt-QKbt98qBzEc | Unsplash |
+| `people/jirayu.webp` | Jirayu N. (tenant, Rooms table) | Khanh Nguyen | https://unsplash.com/photos/a-man-standing-in-front-of-a-wall-with-his-arms-crossed-zp6gjiOqEN4 | Unsplash |
+| `people/phum.webp` | Phum A. (tenant, Rooms table) | Thinh Do | https://unsplash.com/photos/a-boy-wearing-glasses-kvfixNXdJtA | Unsplash |
+| `people/kittipat.webp` | Kittipat E. (tenant, Rooms table) | Hà Nguyễn | https://unsplash.com/photos/smiling-man-in-white-shirt-OFSQ6bHjFjs | Unsplash |
+| `people/krit.webp` | Krit W. (tenant, Rooms table) | Anky Lau | https://unsplash.com/photos/a-man-in-a-white-shirt-looking-at-the-camera-ntLkvt6OZvQ | Unsplash |
+| `people/tanapat.webp` | Tanapat J. (tenant, Rooms table) | Imansyah Muhamad Putera | https://unsplash.com/photos/boys-face-close-up-photography-n4KewLKFOZw | Unsplash |
+| `people/thanakorn.webp` | Thanakorn B. (tenant, Rooms table) | Hongwei FAN | https://unsplash.com/photos/a-man-standing-in-front-of-a-rock-formation-f5b6Aong8BY | Unsplash |
+| `people/weerapat.webp` | Weerapat S. (tenant, Rooms table) | Maccy | https://unsplash.com/photos/a-man-smiling-in-front-of-a-window-7fXswhCS9Fk | Unsplash |
+| `people/anan.webp` | Anan K. (tenant, Rooms table) | Les Taylor | https://unsplash.com/photos/a-man-in-a-blue-collared-shirt-stands-outdoors-gpF7DaGlkZk | Unsplash |
+| `people/chaiwat.webp` | Chaiwat P. (tenant, Rooms table) | ri | https://unsplash.com/photos/a-man-standing-in-front-of-a-yellow-sign-KftI0sQUl1Q | Unsplash |
+| `people/pakorn.webp` | Pakorn L. (tenant, Rooms table) | Bùi Hoàng Long | https://unsplash.com/photos/a-man-standing-in-front-of-a-window-with-his-hand-on-his-chin-6m_wGoAlJbA | Unsplash |
+| `people/teerawat.webp` | Teerawat D. (tenant, Rooms table) | abdullah ali | https://unsplash.com/photos/a-man-standing-in-front-of-a-camera-with-his-arms-crossed-V4bv8rtprTE | Unsplash |
 
 The photos are illustrative only. The products shown are not the exact models listed in OVERVIEW.md, and dorm-dorm has no affiliation with the photographers or brands.

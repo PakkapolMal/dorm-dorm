@@ -293,7 +293,7 @@ export function Rooms({ openId, inspect }) {
             {shown.map((r) => (
               <tr key={r.id} className="click-row" onClick={(e) => { if (!e.target.closest('a, button, .pop')) go(`/landlord/rooms/${r.id}`) }}>
                 <td><a className="room-link" href={`#/landlord/rooms/${r.id}`}>{r.room}</a><small className="cell-sub">Floor {r.floor}</small></td>
-                <td className="truncate">{r.tenant ?? <span className="muted">Vacant</span>}</td>
+                <td>{r.tenant ? <span className="tenant-cell"><Avatar name={r.tenant} photo={r.photo} /><span className="truncate">{r.tenant}</span></span> : <span className="muted">Vacant</span>}</td>
                 <td><StatusBadge map={ROOM_STATUS} status={r.status} /></td>
                 <td><AddonCell room={r} /></td>
                 <td className="num-col num">{r.productIds.length ? thb(roomMonthly(r)) : <span className="muted">—</span>}</td>

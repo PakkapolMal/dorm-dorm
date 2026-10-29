@@ -189,14 +189,33 @@ const LAYOUT = {
   chiangrak: ['A.A..A.N', '.A..AAP.'],
 }
 const PLANS = [['living-basic'], ['study-pro'], ['complete-living'], ['fridge'], ['living-basic', 'study-pro'], ['chair'], ['microwave', 'purifier']]
-const NAMES = ['Napat S.', 'Ploy K.', 'Thanawat R.', 'Chanya P.', 'Krit W.', 'Pimchanok L.', 'Siwakorn T.', 'Natcha B.', 'Pongsakorn M.',
-  'Wipada C.', 'Tanapat J.', 'Kanokwan D.', 'Jirayu N.', 'Sirinya H.', 'Phum A.', 'Arisa V.', 'Nonthawat Y.', 'Benjamas O.', 'Kittipat E.', 'Mintra F.']
+// Every occupied room gets its own tenant. These 7 are fixed (tenant mocks and the activity feed use them),
+// the rest are handed out from TENANT_POOL in room order. 7 + 27 = 34 occupied rooms.
+const FIXED_TENANTS = {
+  'garden-304': 'Ploy K.', 'garden-202': 'Sirinya H.', 'garden-303': 'Napat S.', 'garden-205': 'Nonthawat Y.',
+  'chiangrak-108': 'Suwat T.', 'chiangrak-206': 'Thanawat R.', 'chiangrak-101': 'Wipada C.',
+}
+const TENANT_POOL = ['Siwakorn T.', 'Natcha B.', 'Pongsakorn M.', 'Kanokwan D.', 'Jirayu N.', 'Benjamas O.', 'Phum A.', 'Mintra F.',
+  'Kittipat E.', 'Arisa V.', 'Krit W.', 'Pimchanok L.', 'Tanapat J.', 'Chanya P.', 'Thanakorn B.', 'Kanya S.', 'Weerapat S.',
+  'Pornthip R.', 'Anan K.', 'Nattaya K.', 'Chaiwat P.', 'Duangjai M.', 'Pakorn L.', 'Rattana W.', 'Teerawat D.', 'Supitcha N.', 'Thida C.']
+// Tenant name -> photo in public/images/people/ (credits: docs/IMAGE_CREDITS.md). No entry = initials.
+const PHOTOS = {
+  'Ploy K.': 'ploy', 'Sirinya H.': 'sirinya', 'Napat S.': 'napat', 'Nonthawat Y.': 'nonthawat',
+  'Suwat T.': 'suwat', 'Thanawat R.': 'thanawat', 'Wipada C.': 'wipada',
+  'Natcha B.': 'natcha', 'Kanokwan D.': 'kanokwan', 'Benjamas O.': 'benjamas', 'Mintra F.': 'mintra',
+  'Arisa V.': 'arisa', 'Pimchanok L.': 'pimchanok', 'Chanya P.': 'chanya', 'Kanya S.': 'kanya',
+  'Pornthip R.': 'pornthip', 'Nattaya K.': 'nattaya', 'Duangjai M.': 'duangjai', 'Rattana W.': 'rattana',
+  'Supitcha N.': 'supitcha', 'Thida C.': 'thida', 'Siwakorn T.': 'siwakorn', 'Pongsakorn M.': 'pongsakorn',
+  'Jirayu N.': 'jirayu', 'Phum A.': 'phum', 'Kittipat E.': 'kittipat', 'Krit W.': 'krit', 'Tanapat J.': 'tanapat',
+  'Thanakorn B.': 'thanakorn', 'Weerapat S.': 'weerapat', 'Anan K.': 'anan', 'Chaiwat P.': 'chaiwat',
+  'Pakorn L.': 'pakorn', 'Teerawat D.': 'teerawat',
+}
+let nextTenant = 0
 const midnight = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate())
 // Rooms the tenant mocks also use: same plan and dates on both sides.
 const ROOM_OVERRIDES = {
   'garden-304': { productIds: ['living-basic'], start: midnight(addMonths(TODAY, -4)), term: 6, elec: [728, 812, 665] },
   'chiangrak-207': { productIds: ['living-basic'] },
-  'chiangrak-108': { tenant: 'Suwat T.' },
 }
 
 export const ROOMS = Object.entries(LAYOUT).flatMap(([dorm, floors]) =>
@@ -206,9 +225,10 @@ export const ROOMS = Object.entries(LAYOUT).flatMap(([dorm, floors]) =>
     const status = { A: 'active', N: 'notice', P: 'preupgraded', '.': 'none' }[code]
     const hasItems = status !== 'none'
     const vacant = status === 'preupgraded' || (status === 'none' && n % 5 === 4)
+    const tenant = vacant ? null : FIXED_TENANTS[`${dorm}-${room}`] ?? TENANT_POOL[nextTenant++]
     return {
-      id: `${dorm}-${room}`, dorm, room, floor: f + 1, status,
-      tenant: vacant ? null : NAMES[(n + dorm.length) % NAMES.length],
+      id: `${dorm}-${room}`, dorm, room, floor: f + 1, status, tenant,
+      photo: PHOTOS[tenant] && `/images/people/${PHOTOS[tenant]}.webp`,
       productIds: hasItems ? PLANS[n % PLANS.length] : [],
       start: hasItems ? midnight(addMonths(TODAY, -(2 + (n * 5) % 15))) : null,
       term: n % 3 === 0 ? 12 : 6,
@@ -282,15 +302,14 @@ export function invoicesFor(rooms, dorm, i) {
 export const INVOICE_STATUS = { paid: ['success', 'Paid'], due: ['warning', 'Due'], overdue: ['danger', 'Overdue'] }
 
 const roomById = (id) => ROOMS.find((r) => r.id === id)
-const face = (f) => `/images/people/${f}.webp` // credits: docs/IMAGE_CREDITS.md
 export const ACTIVITY = [
-  { dorm: 'garden', room: '304', who: roomById('garden-304').tenant, photo: face('ploy'), text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-304')), days: 0 },
-  { dorm: 'garden', room: '202', who: roomById('garden-202').tenant, photo: face('sirinya'), text: 'Gave 14-day notice via LINE OA', days: 1 },
-  { dorm: 'garden', room: '303', who: roomById('garden-303').tenant, photo: face('napat'), text: 'Subscribed to add-ons', amount: roomMonthly(roomById('garden-303')), days: 3 },
+  { dorm: 'garden', room: '304', who: roomById('garden-304').tenant, photo: roomById('garden-304').photo, text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-304')), days: 0 },
+  { dorm: 'garden', room: '202', who: roomById('garden-202').tenant, photo: roomById('garden-202').photo, text: 'Gave 14-day notice via LINE OA', days: 1 },
+  { dorm: 'garden', room: '303', who: roomById('garden-303').tenant, photo: roomById('garden-303').photo, text: 'Subscribed to add-ons', amount: roomMonthly(roomById('garden-303')), days: 3 },
   { dorm: 'garden', room: '306', who: null, text: 'Check-out done, items stay in room', days: 5 },
-  { dorm: 'garden', room: '205', who: roomById('garden-205').tenant, photo: face('nonthawat'), text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-205')), days: 6 },
+  { dorm: 'garden', room: '205', who: roomById('garden-205').tenant, photo: roomById('garden-205').photo, text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-205')), days: 6 },
   { dorm: 'chiangrak', room: '207', who: null, text: 'Check-out done, items stay in room', days: 2 },
-  { dorm: 'chiangrak', room: '108', who: roomById('chiangrak-108').tenant, photo: face('suwat'), text: 'Gave 14-day notice via LINE OA', days: 2 },
-  { dorm: 'chiangrak', room: '206', who: roomById('chiangrak-206').tenant, photo: face('thanawat'), text: 'Subscribed to add-ons', amount: roomMonthly(roomById('chiangrak-206')), days: 4 },
-  { dorm: 'chiangrak', room: '101', who: roomById('chiangrak-101').tenant, photo: face('wipada'), text: 'Paid the room invoice', amount: roomMonthly(roomById('chiangrak-101')), days: 7 },
+  { dorm: 'chiangrak', room: '108', who: roomById('chiangrak-108').tenant, photo: roomById('chiangrak-108').photo, text: 'Gave 14-day notice via LINE OA', days: 2 },
+  { dorm: 'chiangrak', room: '206', who: roomById('chiangrak-206').tenant, photo: roomById('chiangrak-206').photo, text: 'Subscribed to add-ons', amount: roomMonthly(roomById('chiangrak-206')), days: 4 },
+  { dorm: 'chiangrak', room: '101', who: roomById('chiangrak-101').tenant, photo: roomById('chiangrak-101').photo, text: 'Paid the room invoice', amount: roomMonthly(roomById('chiangrak-101')), days: 7 },
 ]
