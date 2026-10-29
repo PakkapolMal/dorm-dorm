@@ -6,7 +6,7 @@ import {
 } from '../data.js'
 import { useStore, go } from '../store.jsx'
 import { Page, ActionBar } from './Shell.jsx'
-import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons } from '../ui.jsx'
+import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons, Gallery } from '../ui.jsx'
 
 const BENEFITS = ['Free delivery and setup on wave days', 'Maintenance and repairs included', 'Manufacturer warranty covered']
 
@@ -213,14 +213,7 @@ export function Item({ id }) {
       </ActionBar>
     }>
       <div className="crumbs"><a href="#/tenant">Home</a> / <a href="#/tenant/catalog">Catalog</a> / {p.name}</div>
-      <ProductTile product={p} className={`detail-tile ${p.kind}`} size={72} eager>
-        {p.badge && <span className="tile-badge" style={{ left: 16, bottom: 16 }}><Badge tone="accent">{p.badge}</Badge></span>}
-      </ProductTile>
-      {p.kind === 'bundle' && (
-        <div className="thumbs" aria-hidden="true">
-          {p.items.map((i) => <div key={i} className="thumb"><ItemThumb sku={i} /></div>)}
-        </div>
-      )}
+      <Gallery product={p} badge={p.badge && <Badge tone="accent">{p.badge}</Badge>} />
 
       <h1 className="page-title" style={{ marginTop: 16 }}>{p.name}</h1>
       <p className="caption" style={{ marginTop: 4 }}>{p.kind === 'bundle' ? p.tagline : p.spec}</p>

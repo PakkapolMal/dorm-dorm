@@ -27,6 +27,55 @@ export function ProductTile({ product, size = 40, className = '', eager, childre
   )
 }
 
+// Swipeable photo panel for item detail. Bundles: scene photo first, then each item.
+// Native scroll-snap does the swiping; thumbnails jump to a slide and mirror the current one.
+export function Gallery({ product, badge }) {
+  const track = useRef(null)
+  const [active, setActive] = useState(0)
+  const slides = product.kind === 'bundle'
+    ? [{ id: 'scene', name: product.name, image: product.image, items: product.items },
+       ...product.items.map((i) => ({ id: i, name: SKUS[i].name, image: SKUS[i].image, items: [i], contain: true }))]
+    : [{ id: product.id, name: product.name, image: product.image, items: product.items }]
+
+  const onScroll = () => {
+    const el = track.current
+    setActive(Math.round(el.scrollLeft / el.clientWidth))
+  }
+  const show = (n) => track.current.scrollTo({
+    left: n * track.current.clientWidth,
+    behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+  })
+
+  return (
+    <>
+      <div className={`gallery ${product.kind}`}>
+        <div className="gallery-track" ref={track} onScroll={onScroll} tabIndex={slides.length > 1 ? 0 : undefined}
+          aria-roledescription={slides.length > 1 ? 'carousel' : undefined} aria-label={`Photos of ${product.name}`}>
+          {slides.map((s, n) => (
+            <div key={s.id} className={`tile gallery-slide ${s.contain ? 'contain' : ''}`} role="group"
+              aria-roledescription={slides.length > 1 ? 'slide' : undefined}
+              aria-label={slides.length > 1 ? `${n + 1} of ${slides.length}: ${s.name}` : undefined}>
+              <Photo src={s.image} alt={s.name} eager={n === 0} fallback={<Icons ids={s.items} size={72} label={s.name} />} />
+            </div>
+          ))}
+        </div>
+        {badge && <span className="tile-badge gallery-badge">{badge}</span>}
+        {slides.length > 1 && <span className="gallery-count num" aria-hidden="true">{active + 1} / {slides.length}</span>}
+      </div>
+      {slides.length > 1 && (
+        <div className="thumbs" role="group" aria-label="Choose photo">
+          {slides.map((s, n) => (
+            <button key={s.id} type="button" className="thumb" aria-label={`Show ${s.name}`} aria-current={active === n}
+              onClick={() => show(n)}>
+              <Photo src={s.image} alt="" fallback={<Icons ids={s.items} size={s.items.length > 2 ? 14 : 20} />} />
+            </button>
+          ))}
+        </div>
+      )}
+    </>
+  )
+}
+
 // Pass `sku` for one item, or `product` for a bundle.
 export function ItemThumb({ sku, product }) {
   const p = product ?? { image: SKUS[sku].image, name: SKUS[sku].name, items: [sku] }
