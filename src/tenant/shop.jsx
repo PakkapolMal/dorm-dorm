@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { Plus, Check, ChevronRight, KeyRound, TriangleAlert, Info, Truck, ShieldCheck, Wrench, CircleCheck, Trash2, ShoppingCart, Calendar } from 'lucide-react'
 import {
   SKUS, BUNDLES, getProduct, bundleSaving, thb, ADDON_CAP, SETUP_FEE, BASE_RENT, CONDO_FLOOR,
-  PARTNER_DORMS, depositFor, nextWaves, fmtDay, fmtDate, DAMAGE_FEES, NORMAL_WEAR, TAKEOVER_ROOM, BRAND, TODAY, thbMo,
+  PARTNER_DORMS, depositFor, nextWaves, fmtDay, fmtDate, DAMAGE_FEES, NORMAL_WEAR, TAKEOVER_ROOM, BRAND, TODAY, thbMo, HERO_IMAGE,
 } from '../data.js'
 import { useStore, go } from '../store.jsx'
 import { Page, ActionBar } from './Shell.jsx'
-import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb } from '../ui.jsx'
+import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons } from '../ui.jsx'
 
 const BENEFITS = ['Free delivery and setup on wave days', 'Maintenance and repairs included', 'Manufacturer warranty covered']
 
@@ -70,11 +70,8 @@ export function Home() {
   return (
     <Page tab="shop" flush>
       <section className="hero">
-        <div className="hero-art" aria-hidden="true">
-          <div className="icons">
-            {Object.values(SKUS).map(({ icon: Icon, name }) => <Icon key={name} size={44} strokeWidth={1.5} />)}
-            <Plus size={44} strokeWidth={1.5} />
-          </div>
+        <div className="hero-photo">
+          <Photo src={HERO_IMAGE} eager alt="A bright dorm-sized bedroom with a desk, shelves and a bed" fallback={<Icons ids={Object.keys(SKUS)} size={44} label="Fridge, microwave, chair, standing desk and air purifier" />} />
         </div>
         <div className="hero-copy">
           <h1>Condo comfort, dorm price.</h1>
@@ -216,12 +213,12 @@ export function Item({ id }) {
       </ActionBar>
     }>
       <div className="crumbs"><a href="#/tenant">Home</a> / <a href="#/tenant/catalog">Catalog</a> / {p.name}</div>
-      <ProductTile product={p} className="detail-tile" size={72}>
+      <ProductTile product={p} className={`detail-tile ${p.kind}`} size={72} eager>
         {p.badge && <span className="tile-badge" style={{ left: 16, bottom: 16 }}><Badge tone="accent">{p.badge}</Badge></span>}
       </ProductTile>
       {p.kind === 'bundle' && (
         <div className="thumbs" aria-hidden="true">
-          {p.items.map((i, n) => <div key={i} className={`thumb ${n === 0 ? 'on' : ''}`}><ItemThumb sku={i} /></div>)}
+          {p.items.map((i) => <div key={i} className="thumb"><ItemThumb sku={i} /></div>)}
         </div>
       )}
 
@@ -562,6 +559,7 @@ export function Takeover() {
         <button className="btn btn-primary" onClick={accept}>Take over</button>
       </ActionBar>
     }>
+      <div className="room-photo"><Photo src={t.image} eager alt={`Room ${t.room} with the add-ons installed`} fallback={<Icons ids={items.flatMap((p) => p.items)} size={56} label={`Room ${t.room} add-ons`} />} /></div>
       <Badge tone="info">Pre-upgraded room</Badge>
       <h1 className="page-title" style={{ marginTop: 10 }}>{dorm.name}, Room {t.room}</h1>
       <p className="caption" style={{ marginTop: 4 }}>{t.note}</p>

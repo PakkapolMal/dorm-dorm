@@ -146,8 +146,6 @@ a { color: var(--primary); }
 
 /* ---------- Home ---------- */
 .hero { background: var(--surface-muted); }
-.hero-art { height: 220px; display: grid; place-items: center; background: linear-gradient(160deg, #E9F1EE 0%, #F3EFEA 70%); color: var(--primary); }
-.hero-art .icons { display: grid; grid-template-columns: repeat(3, auto); gap: 18px 26px; }
 .hero-copy { padding: 24px 16px 32px; text-align: center; }
 .hero-copy h1 { font-size: 26px; font-weight: 600; line-height: 1.2; }
 .hero-copy p { margin: 8px auto 20px; max-width: 300px; color: var(--text-muted); }
@@ -274,3 +272,13 @@ a { color: var(--primary); }
 .card-link:hover .product-name { text-decoration: underline; }
 .tab:hover .pill { background: var(--surface-muted); }
 .tab[aria-current='page']:hover .pill { background: var(--primary-soft); }
+
+/* ---------- Photos ---------- */
+.photo { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tile > .photo { position: absolute; inset: 0; }
+.item-thumb { overflow: hidden; }
+.item-thumb .icons { display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; align-content: center; padding: 4px; }
+.hero-photo { position: relative; height: 240px; overflow: hidden; background: var(--surface-muted); }
+.room-photo { position: relative; margin: 0 -16px 16px; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-muted); }
+.detail-tile.sku { aspect-ratio: 1; } /* product photos are square; bundle scenes are 4:3 */
+.hero-photo .icons, .room-photo .icons { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 20px; color: var(--primary); }

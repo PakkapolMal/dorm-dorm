@@ -1,29 +1,39 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { X, Check } from 'lucide-react'
 import { SKUS } from './data.js'
 
-// Placeholder "photo": the product's icons on a muted tile.
-export function ProductTile({ product, size = 40, className = '', children }) {
+// <img> that swaps to `fallback` if the file fails to load.
+export function Photo({ src, alt, fallback, eager }) {
+  const [failed, setFailed] = useState(false)
+  if (!src || failed) return fallback
+  return <img className="photo" src={src} alt={alt} loading={eager ? undefined : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding="async" onError={() => setFailed(true)} />
+}
+
+export function Icons({ ids, size, label }) {
   return (
-    <div className={`tile ${className}`} role="img" aria-label={product.name}>
-      <div className="icons">
-        {product.items.map((id) => {
-          const Icon = SKUS[id].icon
-          return <Icon key={id} size={size} strokeWidth={1.5} aria-hidden="true" />
-        })}
-      </div>
+    <div className="icons" {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}>
+      {ids.map((id) => { const Icon = SKUS[id].icon; return <Icon key={id} size={size} strokeWidth={1.5} aria-hidden="true" /> })}
+    </div>
+  )
+}
+
+// Product photo on a muted tile (icons if the photo is missing).
+export function ProductTile({ product, size = 40, className = '', eager, children }) {
+  return (
+    <div className={`tile ${className}`}>
+      <Photo src={product.image} alt={product.name} eager={eager} fallback={<Icons ids={product.items} size={size} label={product.name} />} />
       {children}
     </div>
   )
 }
 
-// Pass `sku` for one item, or `product` to show every item of a bundle.
+// Pass `sku` for one item, or `product` for a bundle.
 export function ItemThumb({ sku, product }) {
-  const ids = product ? product.items : [sku]
-  const size = ids.length > 2 ? 14 : ids.length === 2 ? 18 : 24
+  const p = product ?? { image: SKUS[sku].image, name: SKUS[sku].name, items: [sku] }
+  const size = p.items.length > 2 ? 14 : p.items.length === 2 ? 18 : 24
   return (
-    <div className="item-thumb" style={ids.length > 1 ? { display: 'flex', flexWrap: 'wrap', gap: 2, alignContent: 'center', justifyContent: 'center', padding: 4 } : undefined}>
-      {ids.map((id) => { const Icon = SKUS[id].icon; return <Icon key={id} size={size} strokeWidth={1.5} aria-hidden="true" /> })}
+    <div className="item-thumb">
+      <Photo src={p.image} alt="" fallback={<Icons ids={p.items} size={size} />} />
     </div>
   )
 }
