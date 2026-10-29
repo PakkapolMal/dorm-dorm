@@ -114,9 +114,10 @@ export const monthsBetween = (a, b) => {
 }
 
 // Free delivery only runs on wave days (Wed / Sat). Next 4 waves at least 2 days out.
+// Dates are local midnight so repeated calls return identical values (they're used as radio values).
 export function nextWaves(from = new Date(), count = 4) {
   const out = []
-  let d = addDays(from, 2)
+  let d = addDays(new Date(from.getFullYear(), from.getMonth(), from.getDate()), 2)
   while (out.length < count) {
     if (d.getDay() === 3 || d.getDay() === 6) out.push(new Date(d))
     d = addDays(d, 1)
