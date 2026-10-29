@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Synthetic constrained reader</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 16px; font: 16px/24px Arial, sans-serif; }
+button { font: inherit; padding: 6px 12px; }
+#context { display: flex; flex-direction: column; height: 320px; width: 640px; border: 1px solid; overflow: hidden; }
+#heading { flex: none; margin: 0; padding: 12px; }
+#reader { flex: 1 1 auto; min-height: 0; padding: 12px; overflow: auto; }
+body.faulty #heading { height: 294px; overflow: hidden; }
+body.short #heading { height: 52px; }
+body.repaired #heading { height: 100px; overflow: auto; }
+#context p { margin: 0 0 20px; }
+#context article { padding-bottom: 36px; }
+#original { width: 640px; }
+[hidden] { display: none !important; }
+</style>
+<main>
+  <div id="context" data-parent="parent-copper" data-group="group-amber" data-page="3">
+    <h1 id="heading"></h1>
+    <div id="reader" tabindex="0" aria-label="Conversation body">
+      <p>Introductory synthetic context. Scroll this reading area to reach the two records.</p>
+      <p>A second full line of context keeps the source entries below the first fold.</p>
+      <p>All labels and identifiers in this example are invented.</p>
+      <article data-child="child-birch" data-record="record-17">
+        <p>Shared review title</p><p>First record body: the copper draft needs a second reading.</p>
+        <button data-source="child-birch/record-17">Open first source</button>
+      </article>
+      <article data-child="child-cedar" data-record="record-29">
+        <p id="target-body">Second record body: the amber draft preserves the complete decision.</p>
+        <p>Shared review title</p>
+        <button id="target-source" data-source="child-cedar/record-29">Open second source</button>
+      </article>
+      <p>End of the synthetic conversation.</p>
+    </div>
+  </div>
+  <section id="original" hidden aria-label="Original record">
+    <h2>Original record</h2>
+    <p id="original-identity"></p><p id="original-body"></p>
+    <button id="return">Return to conversation</button>
+  </section>
+</main>
+<script>
+const params = new URLSearchParams(location.search);
+document.body.classList.add(params.get('layout') === 'repaired' ? 'repaired' : 'faulty');
+document.body.classList.add(params.get('input') === 'short' ? 'short' : 'long');
+const heading = document.querySelector('#heading');
+heading.textContent = params.get('input') === 'short' ? 'Review the draft' :
+  'Review the complete draft, retain the original request and every contribution. '.repeat(12);
+const context = document.querySelector('#context');
+const reader = document.querySelector('#reader');
+const original = document.querySelector('#original');
+let returnScroll = 0;
+for (const button of document.querySelectorAll('[data-source]')) {
+  button.addEventListener('click', () => {
+    returnScroll = reader.scrollTop;
+    context.dataset.selected = button.dataset.source;
+    original.dataset.child = button.closest('article').dataset.child;
+    original.dataset.record = button.closest('article').dataset.record;
+    document.querySelector('#original-identity').textContent = button.dataset.source;
+    document.querySelector('#original-body').textContent = button.closest('article').querySelector('p[id]')?.textContent ||
+      'First record body: the copper draft needs a second reading.';
+    context.hidden = true; original.hidden = false;
+  });
+}
+document.querySelector('#return').addEventListener('click', () => {
+  original.hidden = true; context.hidden = false;
+  reader.scrollTop = returnScroll;
+});
+</script>
+<style>
+#semantic { width: min(900px, 100%); }
+#semantic h1 { font-size: 22px; }
+#request-preview { max-height: 48px; overflow: hidden; }
+#work-list { height: 220px; overflow: auto; border: 1px solid; padding: 12px; }
+#work-list p { margin: 12px 0; }
+#semantic-original { height: 320px; overflow: auto; border: 1px solid; padding: 12px; }
+</style>
+<section id="semantic" hidden>
+  <section id="workbench" data-workspace="workspace-cedar" data-runtime="run-copper" data-page="3" data-selected="record-b">
+    <h1>Draft review</h1>
+    <h2>Goal</h2><p id="goal-text">Prepare an illustrated field guide.</p>
+    <h2>Current requirement</h2><p id="request-preview"></p>
+    <button id="read-requirement">Read full requirement</button>
+    <h2>Latest reply</h2><p id="latest-reply">The index is drafted; the illustrations still need review.</p>
+    <p id="runtime-status">Current native workspace</p>
+    <button id="choose-current" hidden>Choose current native workspace</button>
+    <div id="work-list" tabindex="0" aria-label="Contributions"></div>
+  </section>
+  <section id="semantic-original-view" hidden>
+    <h1>Original record</h1><p id="semantic-identity"></p>
+    <div id="semantic-original" tabindex="0"><p id="semantic-original-body"></p></div>
+    <button id="rotate-runtime">Simulate runtime replacement</button>
+    <button id="semantic-return">Return to workbench</button>
+  </section>
+</section>
+<script>
+if (params.get('journey') === 'semantic') {
+  document.querySelector('main').hidden = true;
+  const semantic = document.querySelector('#semantic');
+  const workbench = document.querySelector('#workbench');
+  const originalView = document.querySelector('#semantic-original-view');
+  const originalBody = document.querySelector('#semantic-original-body');
+  const workList = document.querySelector('#work-list');
+  const currentButton = document.querySelector('#choose-current');
+  const status = document.querySelector('#runtime-status');
+  const mode = params.get('fault') || 'none';
+  let liveRuntime = 'run-copper';
+  let savedScroll = 0;
+  const request = 'Review the illustration captions before publishing. ' +
+    'Keep each caption with its matching drawing, including the appendix. '.repeat(35) +
+    'Final requirement: retain the turquoise envelope in illustration seven.';
+  document.querySelector('#request-preview').textContent = request;
+  workList.innerHTML = Array.from({ length: 16 }, (_, index) => `<p>Contribution ${index + 1}: draft notes awaiting review.</p>`).join('');
+  semantic.hidden = false;
+  document.querySelector('#read-requirement').addEventListener('click', () => {
+    savedScroll = workList.scrollTop;
+    const record = mode === 'goal-as-request' ? 'record-a' : mode === 'reply-as-request' ? 'record-c' : 'record-b';
+    const workspace = mode === 'wrong-source' ? 'workspace-birch' : workbench.dataset.workspace;
+    Object.assign(originalView.dataset, { workspace, runtime: workbench.dataset.runtime, record });
+    document.querySelector('#semantic-identity').textContent = `${workspace} / ${workbench.dataset.runtime} / ${record}`;
+    originalBody.textContent = record === 'record-a' ? document.querySelector('#goal-text').textContent :
+      record === 'record-c' ? document.querySelector('#latest-reply').textContent : request;
+    workbench.hidden = true; originalView.hidden = false;
+    document.querySelector('#semantic-original').scrollTop = 0;
+  });
+  document.querySelector('#rotate-runtime').addEventListener('click', () => { liveRuntime = 'run-amber'; });
+  document.querySelector('#semantic-return').addEventListener('click', () => {
+    originalView.hidden = true; workbench.hidden = false;
+    if (liveRuntime !== workbench.dataset.runtime && mode !== 'stale-return') {
+      workbench.dataset.selected = '';
+      status.textContent = 'Previous workspace instance is unavailable. Choose the current native workspace.';
+      currentButton.hidden = false;
+      document.querySelector('#read-requirement').disabled = true;
+    }
+    if (mode === 'false-return') {
+      workbench.dataset.page = '1'; workbench.dataset.selected = 'record-a'; workList.scrollTop = 0;
+    } else { workList.scrollTop = savedScroll; }
+  });
+  currentButton.addEventListener('click', () => {
+    workbench.dataset.runtime = liveRuntime; workbench.dataset.selected = 'record-b';
+    status.textContent = 'Current native workspace'; currentButton.hidden = true;
+    document.querySelector('#read-requirement').disabled = false;
+  });
+}
+</script>
+</html>

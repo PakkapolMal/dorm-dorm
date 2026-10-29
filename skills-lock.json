@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "frontend-visual-qa": {
+      "source": "daymade/claude-code-skills",
+      "sourceType": "github",
+      "skillPath": "frontend-visual-qa/SKILL.md",
+      "computedHash": "56157c39f1895bb46080b287ecabbe858de8e557d6277ea3880a1d892b630432"
+    }
+  }
+}
