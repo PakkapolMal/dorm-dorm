@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { SCENARIOS, getProduct } from './data.js'
+import { SCENARIOS, getProduct, ROOMS, LANDLORD } from './data.js'
 
 // ---------- hash router: "#/tenant/item/fridge" -> ['tenant','item','fridge'] ----------
 const readHash = () => window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
@@ -7,7 +7,15 @@ const readHash = () => window.location.hash.replace(/^#\/?/, '').split('/').filt
 export function useRoute() {
   const [parts, setParts] = useState(readHash)
   useEffect(() => {
-    const on = () => { setParts(readHash()); window.scrollTo(0, 0) }
+    // Landlord room sheets open over the rooms table, so keep the table's scroll position.
+    const overlay = (p) => p[0] === 'landlord' && p[1] === 'rooms'
+    let prev = readHash()
+    const on = () => {
+      const next = readHash()
+      if (!(overlay(prev) && overlay(next))) window.scrollTo(0, 0)
+      prev = next
+      setParts(next)
+    }
     window.addEventListener('hashchange', on)
     return () => window.removeEventListener('hashchange', on)
   }, [])
@@ -26,6 +34,11 @@ export function StoreProvider({ children }) {
   const [cart, setCart] = useState({ ids: [], term: 6 })
   const [toast, setToast] = useState(null)
   const [lastOrder, setLastOrder] = useState(null)
+  // landlord
+  const [rooms, setRooms] = useState(ROOMS)
+  const [dorm, setDorm] = useState(LANDLORD.dorms[0])
+  const [roomSearch, setRoomSearch] = useState('')
+  const [invoiceSearch, setInvoiceSearch] = useState('')
 
   const showToast = useCallback((text, tone = 'success') => {
     setToast({ text, tone, key: Date.now() })
@@ -63,6 +76,7 @@ export function StoreProvider({ children }) {
     clearCart: () => setCart({ ids: [], term: 6 }),
     lastOrder, setLastOrder,
     toast, showToast,
+    rooms, setRooms, dorm, setDorm, roomSearch, setRoomSearch, invoiceSearch, setInvoiceSearch,
   }
   return <Store.Provider value={value}>{children}</Store.Provider>
 }

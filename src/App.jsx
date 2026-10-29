@@ -4,6 +4,8 @@ import { BRAND, getProduct } from './data.js'
 import { StoreProvider, useRoute } from './store.jsx'
 import { Home, Catalog, Item, Cart, Checkout, Confirmed, Takeover, NotFound } from './tenant/shop.jsx'
 import { Room, Issue, Exit, Buyout, Bills, Help } from './tenant/room.jsx'
+import { Shell } from './landlord/Shell.jsx'
+import { Dashboard, Rooms, Invoices, LandlordNotFound } from './landlord/pages.jsx'
 
 function RolePicker() {
   return (
@@ -17,10 +19,11 @@ function RolePicker() {
             <div><strong>Tenant</strong><span>Shop add-ons, manage your room (mobile)</span></div>
             <ChevronRight size={18} className="chev" aria-hidden="true" />
           </a>
-          <span className="role" aria-disabled="true">
+          <a className="role" href="#/landlord">
             <Building2 size={24} color="var(--primary)" aria-hidden="true" />
-            <div><strong>Landlord</strong><span>Coming soon</span></div>
-          </span>
+            <div><strong>Landlord</strong><span>Rooms, invoices and your revenue share (desktop)</span></div>
+            <ChevronRight size={18} className="chev" aria-hidden="true" />
+          </a>
           <span className="role" aria-disabled="true">
             <Truck size={24} color="var(--primary)" aria-hidden="true" />
             <div><strong>Operator</strong><span>Coming soon</span></div>
@@ -41,13 +44,26 @@ function tenantTitle(page = '', sub) {
   return TITLES[sub ? `${page}/${sub}` : page] ?? TITLES[page] ?? 'Not found'
 }
 
+const LANDLORD_TITLES = { undefined: 'Dashboard', rooms: 'Rooms', invoices: 'Invoices' }
+
+function Landlord({ page, sub, extra }) {
+  let body
+  if (page === undefined) body = <Dashboard />
+  else if (page === 'rooms') body = <Rooms openId={sub} inspect={extra === 'checkout'} />
+  else if (page === 'invoices') body = <Invoices />
+  else body = <LandlordNotFound />
+  return <Shell page={page} sub={sub}>{body}</Shell>
+}
+
 function Routes() {
-  const [role, page, sub] = useRoute()
+  const [role, page, sub, extra] = useRoute()
 
   useEffect(() => {
-    document.title = role === 'tenant' ? `${tenantTitle(page, sub)} · ${BRAND}` : BRAND
+    document.title = role === 'tenant' ? `${tenantTitle(page, sub)} · ${BRAND}`
+      : role === 'landlord' ? `${LANDLORD_TITLES[page] ?? 'Not found'} · ${BRAND}` : BRAND
   }, [role, page, sub])
 
+  if (role === 'landlord') return <Landlord page={page} sub={sub} extra={extra} />
   if (role !== 'tenant') return <RolePicker />
   switch (page) {
     case undefined: return <Home />

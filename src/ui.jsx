@@ -122,19 +122,23 @@ export function Option({ name, value, checked, onChange, label, sub, price, chil
   )
 }
 
-export function Sheet({ title, onClose, children }) {
+// side: right drawer for the desktop dashboard; default is the mobile bottom sheet.
+export function Sheet({ title, onClose, side, children }) {
   const ref = useRef(null)
+  const close = useRef(onClose)
+  useEffect(() => { close.current = onClose })
+  // Runs once per open, so re-renders with a new onClose don't steal focus back to the sheet.
   useEffect(() => {
     const prev = document.activeElement
     ref.current?.focus()
-    const onKey = (e) => e.key === 'Escape' && onClose()
+    const onKey = (e) => e.key === 'Escape' && close.current()
     document.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('keydown', onKey); prev?.focus?.() }
-  }, [onClose])
+  }, [])
   return (
-    <div className="sheet-backdrop" onClick={onClose}>
-      <div className="sheet" role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={ref} onClick={(e) => e.stopPropagation()}>
-        <div className="sheet-grip" />
+    <div className={`sheet-backdrop ${side ? 'sheet-right' : ''}`} onClick={onClose}>
+      <div className={side ? 'sheet sheet-side' : 'sheet'} role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={ref} onClick={(e) => e.stopPropagation()}>
+        {!side && <div className="sheet-grip" />}
         <div className="sheet-head">
           <h2>{title}</h2>
           <button className="icon-btn" onClick={onClose} aria-label="Close"><X size={20} /></button>
@@ -145,9 +149,9 @@ export function Sheet({ title, onClose, children }) {
   )
 }
 
-export function Stepper({ steps, current }) {
+export function Stepper({ steps, current, label = 'Checkout progress' }) {
   return (
-    <ol className="stepper" aria-label="Checkout progress" style={{ listStyle: 'none', padding: 0, margin: '0 0 20px' }}>
+    <ol className="stepper" aria-label={label} style={{ listStyle: 'none', padding: 0, margin: '0 0 20px' }}>
       {steps.map((s, i) => (
         <li key={s} className={`step ${i < current ? 'done' : ''} ${i === current ? 'on' : ''}`} aria-current={i === current ? 'step' : undefined}>
           {i + 1}. {s}
