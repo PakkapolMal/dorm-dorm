@@ -173,9 +173,8 @@ export const REVENUE_SHARE = 0.15
 export const DEPRECIATION_MONTHS = 36
 
 export const dormName = (id) => PARTNER_DORMS.find((d) => d.id === id)?.name
-export const initials = (name) => name.split(' ').map((w) => w[0]).join('').slice(0, 2)
 
-export const LANDLORD = { name: 'Malee Wongsakul', email: 'malee@gardendorm.example', dorms: ['garden', 'chiangrak'] }
+export const LANDLORD = { name: 'Malee Wongsakul', email: 'malee@gardendorm.example', dorms: ['garden', 'chiangrak'], photo: '/images/people/landlord.webp' }
 
 export const ROOM_STATUS = {
   none: ['neutral', 'No add-on'],
@@ -197,6 +196,7 @@ const midnight = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate())
 const ROOM_OVERRIDES = {
   'garden-304': { productIds: ['living-basic'], start: midnight(addMonths(TODAY, -4)), term: 6, elec: [728, 812, 665] },
   'chiangrak-207': { productIds: ['living-basic'] },
+  'chiangrak-108': { tenant: 'Suwat T.' },
 }
 
 export const ROOMS = Object.entries(LAYOUT).flatMap(([dorm, floors]) =>
@@ -282,14 +282,15 @@ export function invoicesFor(rooms, dorm, i) {
 export const INVOICE_STATUS = { paid: ['success', 'Paid'], due: ['warning', 'Due'], overdue: ['danger', 'Overdue'] }
 
 const roomById = (id) => ROOMS.find((r) => r.id === id)
+const face = (f) => `/images/people/${f}.webp` // credits: docs/IMAGE_CREDITS.md
 export const ACTIVITY = [
-  { dorm: 'garden', room: '304', who: roomById('garden-304').tenant, text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-304')), days: 0 },
-  { dorm: 'garden', room: '202', who: roomById('garden-202').tenant, text: 'Gave 14-day notice via LINE OA', days: 1 },
-  { dorm: 'garden', room: '303', who: roomById('garden-303').tenant, text: 'Subscribed to add-ons', amount: roomMonthly(roomById('garden-303')), days: 3 },
+  { dorm: 'garden', room: '304', who: roomById('garden-304').tenant, photo: face('ploy'), text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-304')), days: 0 },
+  { dorm: 'garden', room: '202', who: roomById('garden-202').tenant, photo: face('sirinya'), text: 'Gave 14-day notice via LINE OA', days: 1 },
+  { dorm: 'garden', room: '303', who: roomById('garden-303').tenant, photo: face('napat'), text: 'Subscribed to add-ons', amount: roomMonthly(roomById('garden-303')), days: 3 },
   { dorm: 'garden', room: '306', who: null, text: 'Check-out done, items stay in room', days: 5 },
-  { dorm: 'garden', room: '205', who: roomById('garden-205').tenant, text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-205')), days: 6 },
+  { dorm: 'garden', room: '205', who: roomById('garden-205').tenant, photo: face('nonthawat'), text: 'Paid the room invoice', amount: roomMonthly(roomById('garden-205')), days: 6 },
   { dorm: 'chiangrak', room: '207', who: null, text: 'Check-out done, items stay in room', days: 2 },
-  { dorm: 'chiangrak', room: '108', who: roomById('chiangrak-108').tenant, text: 'Gave 14-day notice via LINE OA', days: 2 },
-  { dorm: 'chiangrak', room: '206', who: roomById('chiangrak-206').tenant, text: 'Subscribed to add-ons', amount: roomMonthly(roomById('chiangrak-206')), days: 4 },
-  { dorm: 'chiangrak', room: '101', who: roomById('chiangrak-101').tenant, text: 'Paid the room invoice', amount: roomMonthly(roomById('chiangrak-101')), days: 7 },
+  { dorm: 'chiangrak', room: '108', who: roomById('chiangrak-108').tenant, photo: face('suwat'), text: 'Gave 14-day notice via LINE OA', days: 2 },
+  { dorm: 'chiangrak', room: '206', who: roomById('chiangrak-206').tenant, photo: face('thanawat'), text: 'Subscribed to add-ons', amount: roomMonthly(roomById('chiangrak-206')), days: 4 },
+  { dorm: 'chiangrak', room: '101', who: roomById('chiangrak-101').tenant, photo: face('wipada'), text: 'Paid the room invoice', amount: roomMonthly(roomById('chiangrak-101')), days: 7 },
 ]

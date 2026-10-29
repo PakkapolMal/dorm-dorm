@@ -5,10 +5,10 @@ import {
 } from 'lucide-react'
 import {
   BRAND, SKUS, getProduct, thb, fmtDate, depositFor, monthsBetween, TODAY, DAMAGE_FEES, NORMAL_WEAR, REVENUE_SHARE, ROOM_STATUS,
-  INVOICE_STATUS, ACTIVITY, PARTNER_DORMS, dormStats, lastMonthStats, shareHistory, roomMonthly, isBilled, totalLossFee, invoiceMonths, invoicesFor, dormName, initials,
+  INVOICE_STATUS, ACTIVITY, PARTNER_DORMS, dormStats, lastMonthStats, shareHistory, roomMonthly, isBilled, totalLossFee, invoiceMonths, invoicesFor, dormName,
 } from '../data.js'
 import { useStore, go } from '../store.jsx'
-import { Badge, Banner, Sheet, ItemThumb, Stepper } from '../ui.jsx'
+import { Avatar, Badge, Banner, Sheet, ItemThumb, Stepper } from '../ui.jsx'
 import { PageHeader, Popover } from './Shell.jsx'
 
 const monthLabel = (d) => d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
@@ -228,7 +228,7 @@ export function Dashboard() {
           <div className="card-d-body act-list">
             {activity.map((a) => (
               <a key={a.room + a.text} className="act-row" href={`#/landlord/rooms/${a.dorm}-${a.room}`}>
-                <span className="avatar" aria-hidden="true">{a.who ? initials(a.who) : <DoorOpen size={16} />}</span>
+                {a.who ? <Avatar name={a.who} photo={a.photo} /> : <span className="avatar" aria-hidden="true"><DoorOpen size={16} /></span>}
                 <span className="grow">
                   <strong>{a.who ?? `Room ${a.room}`} <span className="act-when">· {a.days === 0 ? 'today' : `${a.days}d ago`}</span></strong>
                   <small>{a.who ? `Room ${a.room} · ` : ''}{a.text}</small>

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import {
   PanelLeft, Bell, Search, LayoutDashboard, DoorOpen, ReceiptText, ChevronsUpDown, Check, ArrowLeftRight, CircleCheck, TriangleAlert, ChevronRight,
 } from 'lucide-react'
-import { BRAND, LANDLORD, ACTIVITY, dormName, initials } from '../data.js'
+import { BRAND, LANDLORD, ACTIVITY, dormName } from '../data.js'
+import { Avatar } from '../ui.jsx'
 import { useStore, go } from '../store.jsx'
 
 const NAV = [
@@ -120,7 +121,7 @@ export function Shell({ page, sub, children }) {
         </nav>
 
         <div className="user-card" title={collapsed ? LANDLORD.name : undefined}>
-          <span className="avatar" aria-hidden="true">{initials(LANDLORD.name)}</span>
+          <Avatar name={LANDLORD.name} photo={LANDLORD.photo} />
           <span className="user-text"><strong>{LANDLORD.name}</strong><small>{LANDLORD.email}</small></span>
         </div>
       </aside>

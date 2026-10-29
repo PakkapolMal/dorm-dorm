@@ -87,6 +87,15 @@ export function ItemThumb({ sku, product }) {
   )
 }
 
+// Round person photo; initials if the photo is missing. Decorative: the name is always shown beside it.
+export function Avatar({ name, photo, children }) {
+  return (
+    <span className="avatar" aria-hidden="true">
+      <Photo src={photo} alt="" fallback={children ?? name.split(' ').map((w) => w[0]).join('').slice(0, 2)} />
+    </span>
+  )
+}
+
 export function Badge({ tone = 'neutral', children }) {
   return <span className={`badge badge-${tone}`}>{children}</span>
 }

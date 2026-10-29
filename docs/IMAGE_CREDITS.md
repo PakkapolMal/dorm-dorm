@@ -18,4 +18,19 @@ All photos are in `public/images/`. Each was downloaded already cropped and resi
 | `complete-living.webp` | Complete Living bundle | deborah cortelazzi | https://unsplash.com/photos/tidy-room-filled-with-furnitures-gREquCUXQLI | Unsplash |
 | `takeover-room.webp` | Room takeover page | Harsh Vardhan Yadav | https://unsplash.com/photos/studio-apartment-kitchenette-and-bed-YDLDyqibZmU | Unsplash |
 
+## People
+
+Avatar photos for the landlord pages are in `public/images/people/`. Each was downloaded from the Unsplash CDN on 2026-10-29, already face-cropped to 160×160 WebP. They are stand-ins for fictional mock people. The names and roles are invented and have nothing to do with the people photographed.
+
+| File | Used for | Photographer | Source | License |
+|---|---|---|---|---|
+| `people/landlord.webp` | Malee Wongsakul (landlord, sidebar) | Annika Palmari | https://unsplash.com/photos/woman-in-black-blazer-smiling-RIt88XBR3G0 | Unsplash |
+| `people/ploy.webp` | Ploy K., Rangsit Garden 304 | Hưng Nguyễn | https://unsplash.com/photos/woman-in-white-long-sleeve-shirt-and-black-skirt-sitting-on-brown-wooden-bench-during-daytime-B-y35HV0MX0 | Unsplash |
+| `people/sirinya.webp` | Sirinya H., Rangsit Garden 202 | Dev Asangbam | https://unsplash.com/photos/smiling-woman-in-white-button-up-shirt-3NSCIipl-EQ | Unsplash |
+| `people/napat.webp` | Napat S., Rangsit Garden 303 | Juan Encalada | https://unsplash.com/photos/man-in-denim-shirt-at-desk-WC7KIHo13Fc | Unsplash |
+| `people/nonthawat.webp` | Nonthawat Y., Rangsit Garden 205 | Rajudin Hax | https://unsplash.com/photos/a-man-with-glasses-and-a-blue-jacket-3sZo3h7SDiI | Unsplash |
+| `people/suwat.webp` | Suwat T., Chiang Rak 108 | Johm Kann | https://unsplash.com/photos/man-standing-beside-wall-71NgiXcdTzE | Unsplash |
+| `people/thanawat.webp` | Thanawat R., Chiang Rak 206 | Khooi Ahn | https://unsplash.com/photos/a-man-with-a-black-shirt-and-a-black-shirt-8yUPtFNc2sY | Unsplash |
+| `people/wipada.webp` | Wipada C., Chiang Rak 101 | Ba Ba | https://unsplash.com/photos/smiling-woman-in-black-framed-eyeglasses-nxA6AvGqEbY | Unsplash |
+
 The photos are illustrative only. The products shown are not the exact models listed in OVERVIEW.md, and dorm-dorm has no affiliation with the photographers or brands.
