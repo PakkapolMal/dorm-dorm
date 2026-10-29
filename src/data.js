@@ -3,7 +3,10 @@ import { Refrigerator, Microwave, Armchair, LampDesk, Wind } from 'lucide-react'
 
 // Capitalization is undecided, so the brand renders from this one place.
 export const BRAND = 'dorm-dorm'
-export const HERO_IMAGE = '/images/hero.webp'
+// Prefix with Vite's base so images resolve under the GitHub Pages subpath.
+const IMG = import.meta.env.BASE_URL + 'images/'
+
+export const HERO_IMAGE = IMG + 'hero.webp'
 
 export const ADDON_CAP = 1500
 export const SETUP_FEE = 300
@@ -18,35 +21,35 @@ export const CONDO_FLOOR = 7500
 // retail = mock reference price used for buyout estimates
 export const SKUS = {
   fridge: {
-    image: '/images/fridge.webp',
+    image: IMG + 'fridge.webp',
     name: '2-Door Inverter Fridge', short: 'Fridge', price: 390, retail: 5990, icon: Refrigerator, category: 'kitchen',
     spec: '5.6–6.6 cu.ft. with separate freezer',
     models: 'Hitachi HRTN5198, Haier HRF-185MN, Hisense 5.6Q',
     warranty: 'Multi-year compressor warranty',
   },
   microwave: {
-    image: '/images/microwave.webp',
+    image: IMG + 'microwave.webp',
     name: 'Microwave Oven 20L', short: 'Microwave', price: 190, retail: 1790, icon: Microwave, category: 'kitchen',
     spec: '20L, 700–800W',
     models: 'Sharp R-S20M6TA, Electrolux EMM20K22B',
     warranty: '1-year manufacturer warranty',
   },
   chair: {
-    image: '/images/chair.webp',
+    image: IMG + 'chair.webp',
     name: 'Ergonomic Mesh Chair', short: 'Ergo chair', price: 290, retail: 4990, icon: Armchair, category: 'study',
     spec: 'Adjustable lumbar, mesh back',
     models: 'Sihoo M18',
     warranty: '3–7 year manufacturer warranty',
   },
   desk: {
-    image: '/images/desk.webp',
+    image: IMG + 'desk.webp',
     name: 'Electric Standing Desk', short: 'Standing desk', price: 350, retail: 2900, icon: LampDesk, category: 'study',
     spec: '120 cm, motorized height',
     models: 'Amo Design, Nubwo, Ergomaker',
     warranty: '2–3 year manufacturer warranty',
   },
   purifier: {
-    image: '/images/purifier.webp',
+    image: IMG + 'purifier.webp',
     name: 'Smart Air Purifier', short: 'Air purifier', price: 220, retail: 2990, icon: Wind, category: 'air',
     spec: 'HEPA, for 16–27 sq.m. rooms',
     models: 'Xiaomi Smart Air Purifier 4 Compact',
@@ -56,17 +59,17 @@ export const SKUS = {
 
 export const BUNDLES = {
   'living-basic': {
-    image: '/images/living-basic.webp',
+    image: IMG + 'living-basic.webp',
     name: 'Living Basic', price: 490, items: ['fridge', 'microwave'], badge: 'Popular', category: 'kitchen',
     tagline: 'Cook and keep food fresh',
   },
   'study-pro': {
-    image: '/images/study-pro.webp',
+    image: IMG + 'study-pro.webp',
     name: 'Study / Work Pro', price: 590, items: ['chair', 'desk'], badge: 'Popular', category: 'study',
     tagline: 'A real desk setup for long study nights',
   },
   'complete-living': {
-    image: '/images/complete-living.webp',
+    image: IMG + 'complete-living.webp',
     name: 'Complete Living', price: 990, items: ['fridge', 'microwave', 'chair', 'purifier'], badge: 'Best value', category: 'all',
     tagline: 'Condo-grade comfort in your dorm room',
   },
@@ -148,7 +151,7 @@ export const SCENARIOS = {
 }
 
 export const TAKEOVER_ROOM = {
-  dorm: 'chiangrak', room: '207', productIds: ['living-basic'], image: '/images/takeover-room.webp',
+  dorm: 'chiangrak', room: '207', productIds: ['living-basic'], image: IMG + 'takeover-room.webp',
   note: 'The previous tenant moved out. The items were inspected and left in the room.',
 }
 
@@ -174,7 +177,7 @@ export const DEPRECIATION_MONTHS = 36
 
 export const dormName = (id) => PARTNER_DORMS.find((d) => d.id === id)?.name
 
-export const LANDLORD = { name: 'Malee Wongsakul', email: 'malee@gardendorm.example', dorms: ['garden', 'chiangrak'], photo: '/images/people/landlord.webp' }
+export const LANDLORD = { name: 'Malee Wongsakul', email: 'malee@gardendorm.example', dorms: ['garden', 'chiangrak'], photo: IMG + 'people/landlord.webp' }
 
 export const ROOM_STATUS = {
   none: ['neutral', 'No add-on'],
@@ -228,7 +231,7 @@ export const ROOMS = Object.entries(LAYOUT).flatMap(([dorm, floors]) =>
     const tenant = vacant ? null : FIXED_TENANTS[`${dorm}-${room}`] ?? TENANT_POOL[nextTenant++]
     return {
       id: `${dorm}-${room}`, dorm, room, floor: f + 1, status, tenant,
-      photo: PHOTOS[tenant] && `/images/people/${PHOTOS[tenant]}.webp`,
+      photo: PHOTOS[tenant] && `${IMG}people/${PHOTOS[tenant]}.webp`,
       productIds: hasItems ? PLANS[n % PLANS.length] : [],
       start: hasItems ? midnight(addMonths(TODAY, -(2 + (n * 5) % 15))) : null,
       term: n % 3 === 0 ? 12 : 6,
