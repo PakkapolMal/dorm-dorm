@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>dorm-dorm Flows</title>
+<style>
+  :root { --bg: #fff; --fg: #1f2328; --muted: #59636e; --border: #d1d9e0; --card: #f6f8fa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --border: #3d444d; --card: #151b23; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 system-ui, 'Segoe UI', Roboto, sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { margin-bottom: 4px; }
+  h2 { margin-top: 40px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+  p.lede, .note { color: var(--muted); }
+  nav a { margin-right: 12px; }
+  a { color: #0969da; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .table-wrap { overflow-x: auto; }
+  th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
+  th { background: var(--card); }
+  pre.mermaid { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; text-align: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1>dorm-dorm — Pages and Flows</h1>
+  <p class="lede">This is the plan for the prototype's pages and user flows. The rules and numbers come from <a href="OVERVIEW.md">OVERVIEW.md</a>.</p>
+  <nav>
+    <a href="#sitemap">Sitemap</a><a href="#pages">Pages</a><a href="#subscribe">Subscribe</a><a href="#billing">Billing</a><a href="#issue">Issue</a><a href="#exit">Leave early</a><a href="#turnover">Turnover</a><a href="#waves">Delivery waves</a><a href="#data">Mock data</a>
+  </nav>
+
+  <h2 id="sitemap">1. Sitemap</h2>
+  <p>The prototype has no real auth. A <strong>role switcher</strong> on the entry page picks the Tenant, Landlord, or Operator view, and each role gets its own navigation.</p>
+<pre class="mermaid">
+flowchart LR
+  Entry["Landing + Role switcher"]
+
+  Entry --> T["Tenant"]
+  Entry --> L["Landlord"]
+  Entry --> O["Operator"]
+
+  T --> T1["Catalog: items and bundles"]
+  T1 --> T2["Item / Bundle detail"]
+  T2 --> T3["Checkout"]
+  T3 --> T4["Order confirmation"]
+  T --> T5["My Subscription"]
+  T5 --> T6["Report an issue"]
+  T5 --> T7["Leave early / Exit request"]
+  T5 --> T8["Buy out items"]
+  T5 --> T9["Invoices"]
+  T --> T10["Take over pre-upgraded room"]
+
+  L --> L1["Dashboard: revenue share"]
+  L --> L2["Rooms"]
+  L2 --> L3["Room detail + Check-out inspection"]
+  L --> L4["Monthly invoices"]
+
+  O --> O1["Dashboard"]
+  O --> O2["Orders + Delivery waves"]
+  O --> O3["Assets / Inventory"]
+  O --> O4["Issue tickets"]
+  O --> O5["Exit requests"]
+  O --> O6["Partner dorms"]
+</pre>
+
+  <h2 id="pages">2. Page list</h2>
+  <div class="table-wrap">
+  <table>
+    <tr><th>#</th><th>Page</th><th>Role</th><th>Purpose / key content</th></tr>
+    <tr><td>—</td><td>Landing + Role switcher</td><td>All</td><td>Pitch: "dorm 3,500 + Complete Living 990 = 4,490 vs condo 7,500+". Buttons to enter as each role.</td></tr>
+    <tr><td>T1</td><td>Catalog</td><td>Tenant</td><td>5 single items and 3 bundles, with the lead bundles first. A running monthly total with a <strong>1,500 THB/mo cap</strong> warning.</td></tr>
+    <tr><td>T2</td><td>Item / Bundle detail</td><td>Tenant</td><td>Example models, price, bundle saving, what is included (maintenance, warranty).</td></tr>
+    <tr><td>T3</td><td>Checkout</td><td>Tenant</td><td>Partner dorm + room number, term (6 or 12 months), delivery wave date, fee summary, contract and damage policy acceptance.</td></tr>
+    <tr><td>T4</td><td>Order confirmation</td><td>Tenant</td><td>Wave date, what happens next, and a "LINE OA" contact note.</td></tr>
+    <tr><td>T5</td><td>My Subscription</td><td>Tenant</td><td>Active items, monthly fee, contract start/end, deposit held, and action buttons.</td></tr>
+    <tr><td>T6</td><td>Report an issue</td><td>Tenant</td><td>Pick an item, then the issue type: malfunction (warranty) or damage (fee schedule).</td></tr>
+    <tr><td>T7</td><td>Exit request</td><td>Tenant</td><td>The 3 pathways with a live fee calculation and the 14-day notice date.</td></tr>
+    <tr><td>T8</td><td>Buyout</td><td>Tenant</td><td>Shown after 24 months: buy in-room items for 25–35% of retail.</td></tr>
+    <tr><td>T9</td><td>Invoices</td><td>Tenant</td><td>The room invoice with the add-on as a line item (rent, water, electricity, dorm-dorm).</td></tr>
+    <tr><td>T10</td><td>Room takeover</td><td>Tenant</td><td>The incoming tenant of a pre-upgraded room accepts the existing items. <strong>Setup fee waived.</strong></td></tr>
+    <tr><td>L1</td><td>Dashboard</td><td>Landlord</td><td>Upgraded rooms, subscription revenue, and the <strong>15% share</strong> this month.</td></tr>
+    <tr><td>L2</td><td>Rooms</td><td>Landlord</td><td>Status per room: <em>No add-on</em>, <em>Active</em>, or <em>Pre-upgraded (vacant)</em>.</td></tr>
+    <tr><td>L3</td><td>Room detail + Check-out</td><td>Landlord</td><td>Inspection checklist, damage deductions from the room deposit, and "items stay in room".</td></tr>
+    <tr><td>L4</td><td>Monthly invoices</td><td>Landlord</td><td>Invoices per room that include the add-on line.</td></tr>
+    <tr><td>O1</td><td>Dashboard</td><td>Operator</td><td>Active subscriptions, the next wave, open tickets, and pending exits.</td></tr>
+    <tr><td>O2</td><td>Orders + Delivery waves</td><td>Operator</td><td>Group new orders by dorm cluster into a wave day (e.g. Wed/Sat), then mark them delivered.</td></tr>
+    <tr><td>O3</td><td>Assets</td><td>Operator</td><td>Each unit's status: <em>Warehouse</em>, <em>Installed (room)</em>, <em>In repair</em>, or <em>Retired</em>. Also shows age and warranty.</td></tr>
+    <tr><td>O4</td><td>Issue tickets</td><td>Operator</td><td>Triage each ticket to a warranty claim (free) or a damage fee (from the schedule).</td></tr>
+    <tr><td>O5</td><td>Exit requests</td><td>Operator</td><td>Process transfer, relocation, or return. Schedule pickup, settle the deposit.</td></tr>
+    <tr><td>O6</td><td>Partner dorms</td><td>Operator</td><td>Dorm list, rooms, and revenue share.</td></tr>
+  </table>
+  </div>
+
+  <h2 id="subscribe">3.1 Tenant subscribes</h2>
+<pre class="mermaid">
+flowchart TD
+  A["Catalog"] --> B["Select item or bundle"]
+  B --> C{"Monthly add-on total over 1,500 THB?"}
+  C -- Yes --> C1["Warn: cheaper to move to serviced apartment"] --> B
+  C -- No --> D["Checkout: choose dorm + room"]
+  D --> E{"Term?"}
+  E -- "6 months" --> F["Setup fee 300 THB"]
+  E -- "12 months" --> G["Setup fee waived"]
+  F --> H["Deposit ~1 month of fee"]
+  G --> H
+  H --> I["Pick delivery wave date"]
+  I --> J["Review fees + accept lease and damage policy"]
+  J --> K["Submit order"]
+  K --> L["Confirmation"]
+  L --> M["Operator: order joins delivery wave"]
+  M --> N["Delivered + installed"]
+  N --> O["Subscription active; fee added to room invoice"]
+</pre>
+
+  <h2 id="billing">3.2 Monthly billing</h2>
+<pre class="mermaid">
+flowchart LR
+  A["Active subscription"] --> B["Landlord room invoice: rent + water + electricity + dorm-dorm add-on"]
+  B --> C["Tenant pays landlord"]
+  C --> D["Landlord keeps 15%"]
+  C --> E["85% to dorm-dorm"]
+</pre>
+
+  <h2 id="issue">3.3 Report an issue</h2>
+<pre class="mermaid">
+flowchart TD
+  A["My Subscription"] --> B["Report an issue: select item"]
+  B --> C["Describe + optional photo"]
+  C --> D["Operator ticket"]
+  D --> E{"Triage"}
+  E -- "Internal fault, no abuse" --> F["Manufacturer warranty claim: tenant pays 0"]
+  E -- "Normal wear: scratches, caster wear, foam" --> G["No charge"]
+  E -- "Tenant damage" --> H["Fee from schedule: tray 400, mesh 900, keypad 850, total loss = buyout"]
+  H --> I["Charged on next room invoice or from deposit"]
+  F --> J["Repaired / replaced; ticket closed"]
+  G --> J
+  I --> J
+</pre>
+
+  <h2 id="exit">3.4 Leave early (before 6 months)</h2>
+<pre class="mermaid">
+flowchart TD
+  A["My Subscription"] --> B["Leave early"]
+  B --> C["Notice date = today + 14 days"]
+  C --> D{"Choose pathway"}
+  D -- "1. Transfer" --> E["Enter next tenant / peer in same building"]
+  E --> E1["Fee 0; contract continues under new tenant"]
+  D -- "2. Relocate in zone" --> F["Enter new Rangsit / Pathum Thani address"]
+  F --> F1["Fee 350–500 THB; operator schedules move"]
+  D -- "3. Return + cancel" --> G["Fee = 600 + min of 1 month fee, 50% of remaining balance"]
+  G --> G1["Operator schedules pickup + inspection"]
+  G1 --> G2["Deposit settled; refund in 3–5 business days"]
+  E1 --> Z["Operator: Exit requests"]
+  F1 --> Z
+  G2 --> Z
+</pre>
+
+  <h2 id="turnover">3.5 Lease ends: room turnover</h2>
+  <p>The default is <strong>in-situ retention</strong>: the items stay in the room for the next tenant.</p>
+<pre class="mermaid">
+flowchart TD
+  A["Tenant lease ends"] --> B{"Tenant choice"}
+  B -- "Buy out items, after 24+ months" --> C["Pay 25–35% of retail; items become tenant's"]
+  B -- "End subscription" --> D["Landlord check-out inspection"]
+  D --> E{"Damage found?"}
+  E -- Yes --> F["Deduct scheduled fee from deposit"]
+  E -- No --> G["Full deposit refund"]
+  F --> H["Items stay in room"]
+  G --> H
+  H --> I["Room marked Pre-upgraded vacant"]
+  I --> J["New tenant moves in"]
+  J --> K{"Takes over add-ons?"}
+  K -- Yes --> L["Room takeover: setup fee waived; new subscription active"]
+  K -- No --> M["Operator schedules pickup; asset back to Warehouse"]
+</pre>
+
+  <h2 id="waves">3.6 Operator delivery waves</h2>
+<pre class="mermaid">
+flowchart LR
+  A["New orders"] --> B["Group by dorm cluster"]
+  B --> C["Assign to wave day, e.g. Wed / Sat"]
+  C --> D["Allocate assets from Warehouse"]
+  D --> E["Mark delivered + installed"]
+  E --> F["Asset status: Installed in room"]
+</pre>
+
+  <h2 id="data">4. Shared mock data</h2>
+  <p>Every page reads from one mock data set:</p>
+  <ul>
+    <li><strong>Catalog:</strong> 5 SKUs and 3 bundles, with the prices from OVERVIEW.md.</li>
+    <li><strong>Partner dorms:</strong> 3–5 Rangsit dorms, each with rooms.</li>
+    <li><strong>Subscriptions:</strong> tenant, room, items, term, start date, deposit, and status.</li>
+    <li><strong>Assets:</strong> SKU, serial, status, room, warranty end.</li>
+    <li><strong>Tickets</strong> and <strong>exit requests.</strong></li>
+  </ul>
+  <p class="note">The diagrams need an internet connection, because Mermaid loads from a CDN.</p>
+</main>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({ startOnLoad: true, theme: dark ? 'dark' : 'default' });
+</script>
+</body>
+</html>
