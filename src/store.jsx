@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
-import { SCENARIOS, getProduct, ROOMS, LANDLORD } from './data.js'
+import { SCENARIOS, getProduct, ROOMS, LANDLORD, ORDERS, ASSETS, TICKETS, EXITS, TODAY, NOTICE_DAYS, addDays, exitFor } from './data.js'
 
 // ---------- hash router: "#/tenant/item/fridge" -> ['tenant','item','fridge'] ----------
 const readHash = () => window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
@@ -39,6 +39,12 @@ export function StoreProvider({ children }) {
   const [dorm, setDorm] = useState(LANDLORD.dorms[0])
   const [roomSearch, setRoomSearch] = useState('')
   const [invoiceSearch, setInvoiceSearch] = useState('')
+  // operator
+  const [orders, setOrders] = useState(ORDERS)
+  const [assets, setAssets] = useState(ASSETS)
+  const [tickets, setTickets] = useState(TICKETS)
+  const [exits, setExits] = useState(EXITS)
+  const [assetSearch, setAssetSearch] = useState('')
 
   const showToast = useCallback((text, tone = 'success') => {
     setToast({ text, tone, key: Date.now() })
@@ -66,6 +72,23 @@ export function StoreProvider({ children }) {
     return null
   }
 
+  // Tenant reports land on the operator's boards. Returns the new ticket id.
+  const addTicket = ({ dorm, room, sku, title, detail, type }) => {
+    const id = `T-${2092 + tickets.length - TICKETS.length}`
+    const r = rooms.find((x) => x.id === `${dorm}-${room}`)
+    const priority = { fault: 'high', damage: 'medium', wear: 'low' }[type]
+    setTickets((ts) => [{ id, roomId: `${dorm}-${room}`, dorm, room, tenant: r?.tenant ?? 'Demo tenant', photo: r?.photo, sku, title, detail, type, priority, created: TODAY, stage: 'new' }, ...ts])
+    return id
+  }
+  // Leave early: the room enters its notice period (landlord sees it too) and the request joins the exit queue.
+  const addExit = ({ dorm, room, productIds, start, term, path, detail }) => {
+    const roomId = `${dorm}-${room}`
+    const r = rooms.find((x) => x.id === roomId) ?? { id: roomId, dorm, room, tenant: 'Demo tenant' }
+    const moveOut = addDays(TODAY, NOTICE_DAYS)
+    setRooms((rs) => rs.map((x) => (x.id === roomId ? { ...x, status: 'notice', moveOut } : x)))
+    setExits((xs) => [exitFor({ ...r, productIds, start, term, moveOut }, path, detail, 'pending', `X-${301 + xs.length}`), ...xs.filter((x) => x.roomId !== roomId)])
+  }
+
   const value = {
     scenario,
     setScenario: (key) => { setScenarioKey(key); setSubscription(SCENARIOS[key].subscription) },
@@ -77,6 +100,7 @@ export function StoreProvider({ children }) {
     lastOrder, setLastOrder,
     toast, showToast,
     rooms, setRooms, dorm, setDorm, roomSearch, setRoomSearch, invoiceSearch, setInvoiceSearch,
+    orders, setOrders, assets, setAssets, tickets, setTickets, exits, setExits, assetSearch, setAssetSearch, addTicket, addExit,
   }
   return <Store.Provider value={value}>{children}</Store.Provider>
 }

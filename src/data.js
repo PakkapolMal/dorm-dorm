@@ -25,35 +25,35 @@ export const SKUS = {
     name: '2-Door Inverter Fridge', short: 'Fridge', price: 390, retail: 5990, icon: Refrigerator, category: 'kitchen',
     spec: '5.6–6.6 cu.ft. with separate freezer',
     models: 'Hitachi HRTN5198, Haier HRF-185MN, Hisense 5.6Q',
-    warranty: 'Multi-year compressor warranty',
+    warranty: 'Multi-year compressor warranty', warrantyMonths: 36,
   },
   microwave: {
     image: IMG + 'room/microwave.webp',
     name: 'Microwave Oven 20L', short: 'Microwave', price: 190, retail: 1790, icon: Microwave, category: 'kitchen',
     spec: '20L, 700–800W',
     models: 'Sharp R-S20M6TA, Electrolux EMM20K22B',
-    warranty: '1-year manufacturer warranty',
+    warranty: '1-year manufacturer warranty', warrantyMonths: 12,
   },
   chair: {
     image: IMG + 'room/chair.webp',
     name: 'Ergonomic Mesh Chair', short: 'Ergo chair', price: 290, retail: 4990, icon: Armchair, category: 'study',
     spec: 'Adjustable lumbar, mesh back',
     models: 'Sihoo M18',
-    warranty: '3–7 year manufacturer warranty',
+    warranty: '3–7 year manufacturer warranty', warrantyMonths: 36,
   },
   desk: {
     image: IMG + 'room/desk.webp',
     name: 'Electric Standing Desk', short: 'Standing desk', price: 350, retail: 2900, icon: LampDesk, category: 'study',
     spec: '120 cm, motorized height',
     models: 'Amo Design, Nubwo, Ergomaker',
-    warranty: '2–3 year manufacturer warranty',
+    warranty: '2–3 year manufacturer warranty', warrantyMonths: 24,
   },
   purifier: {
     image: IMG + 'room/purifier.webp',
     name: 'Smart Air Purifier', short: 'Air purifier', price: 220, retail: 2990, icon: Wind, category: 'air',
     spec: 'HEPA, for 16–27 sq.m. rooms',
     models: 'Xiaomi Smart Air Purifier 4 Compact',
-    warranty: '1-year manufacturer warranty',
+    warranty: '1-year manufacturer warranty', warrantyMonths: 12,
   },
 }
 
@@ -111,6 +111,9 @@ export const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() 
 export const addMonths = (d, n) => { const x = new Date(d); x.setMonth(x.getMonth() + n); return x }
 export const fmtDate = (d) => new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 export const fmtDay = (d) => new Date(d).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+export const monthLabel = (d) => d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
+export const monthShort = (d) => d.toLocaleDateString('en-GB', { month: 'short' })
+export const sum = (xs) => xs.reduce((s, x) => s + x, 0)
 export const monthsBetween = (a, b) => {
   const s = new Date(a), e = new Date(b)
   return (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()) - (e.getDate() < s.getDate() ? 1 : 0)
@@ -192,17 +195,23 @@ export const ROOM_STATUS = {
 const LAYOUT = {
   garden: ['A.A.P.', '.N..A.', '.AAA.P', 'A..NA.'],
   chiangrak: ['A.A..A.N', '.A..AAP.'],
+  // Not landlord properties in this demo; the operator sees all four partner dorms.
+  lotus: ['A.AN.A', '.AA.P.'],
+  bu: ['AA..A.', '.A.AP.'],
 }
 const PLANS = [['living-basic'], ['study-pro'], ['complete-living'], ['fridge'], ['living-basic', 'study-pro'], ['chair'], ['microwave', 'purifier']]
 // Every occupied room gets its own tenant. These 7 are fixed (tenant mocks and the activity feed use them),
-// the rest are handed out from TENANT_POOL in room order. 7 + 27 = 34 occupied rooms.
+// the rest are handed out from TENANT_POOL in room order. 7 + 27 = 34 occupied rooms in the landlord's two dorms, then 20 more in Lotus and Phahon.
 const FIXED_TENANTS = {
   'garden-304': 'Ploy K.', 'garden-202': 'Sirinya H.', 'garden-303': 'Napat S.', 'garden-205': 'Nonthawat Y.',
   'chiangrak-108': 'Suwat T.', 'chiangrak-206': 'Thanawat R.', 'chiangrak-101': 'Wipada C.',
 }
 const TENANT_POOL = ['Siwakorn T.', 'Natcha B.', 'Pongsakorn M.', 'Kanokwan D.', 'Jirayu N.', 'Benjamas O.', 'Phum A.', 'Mintra F.',
   'Kittipat E.', 'Arisa V.', 'Krit W.', 'Pimchanok L.', 'Tanapat J.', 'Chanya P.', 'Thanakorn B.', 'Kanya S.', 'Weerapat S.',
-  'Pornthip R.', 'Anan K.', 'Nattaya K.', 'Chaiwat P.', 'Duangjai M.', 'Pakorn L.', 'Rattana W.', 'Teerawat D.', 'Supitcha N.', 'Thida C.']
+  'Pornthip R.', 'Anan K.', 'Nattaya K.', 'Chaiwat P.', 'Duangjai M.', 'Pakorn L.', 'Rattana W.', 'Teerawat D.', 'Supitcha N.', 'Thida C.',
+  // Lotus Place + Phahon Student House (no photos: initials)
+  'Akkarin P.', 'Bussaba T.', 'Chalita R.', 'Danai S.', 'Ekkachai W.', 'Fasai N.', 'Itsara K.', 'Jutamas L.', 'Kamon C.', 'Lalita M.',
+  'Manop D.', 'Nalin O.', 'Orathai B.', 'Panupong V.', 'Ratchanon H.', 'Sakda J.', 'Tharinee G.', 'Uthai F.', 'Varit Y.', 'Yupin E.']
 // Tenant name -> photo in public/images/people/ (credits: docs/IMAGE_CREDITS.md). No entry = initials.
 const PHOTOS = {
   'Ploy K.': 'ploy', 'Sirinya H.': 'sirinya', 'Napat S.': 'napat', 'Nonthawat Y.': 'nonthawat',
@@ -317,4 +326,105 @@ export const ACTIVITY = [
   { dorm: 'chiangrak', room: '108', who: roomById('chiangrak-108').tenant, photo: roomById('chiangrak-108').photo, text: 'Gave 14-day notice via LINE OA', days: 2 },
   { dorm: 'chiangrak', room: '206', who: roomById('chiangrak-206').tenant, photo: roomById('chiangrak-206').photo, text: 'Subscribed to add-ons', amount: roomMonthly(roomById('chiangrak-206')), days: 4 },
   { dorm: 'chiangrak', room: '101', who: roomById('chiangrak-101').tenant, photo: roomById('chiangrak-101').photo, text: 'Paid the room invoice', amount: roomMonthly(roomById('chiangrak-101')), days: 7 },
+]
+
+// ---------- operator ----------
+export const OPERATOR = { name: 'Kanda Srisuk', email: `kanda@${BRAND.toLowerCase()}.example` }
+
+// Delivery clusters = the area before the comma ("Khlong Nueng, near TU Rangsit" -> "Khlong Nueng").
+export const clusterOf = (dorm) => PARTNER_DORMS.find((d) => d.id === dorm).area.split(',')[0]
+
+// Most recent wave day (Wed / Sat) on or before `from`: its orders are out for delivery.
+export function lastWave(from = TODAY) {
+  let d = midnight(from)
+  while (d.getDay() !== 3 && d.getDay() !== 6) d = addDays(d, -1)
+  return d
+}
+// Pickup / move dates for an exit: wave days on or after the last day of notice.
+export const exitDates = (notice) => nextWaves(addDays(notice, -2), 3)
+
+export const ORDER_STATUS = { new: ['warning', 'New'], scheduled: ['info', 'Scheduled'], delivered: ['success', 'Delivered'] }
+export const ASSET_STATUS = { warehouse: ['neutral', 'Warehouse'], installed: ['success', 'Installed'], repair: ['info', 'In repair'], retired: ['muted', 'Retired'] }
+export const EXIT_STATUS = { pending: ['warning', 'Pending'], scheduled: ['info', 'Scheduled'] }
+export const EXIT_PATHS = { transfer: 'Transfer', relocate: 'Relocation', return: 'Return + cancel', end: 'End of term' }
+export const STAGES = [['new', 'New'], ['triage', 'Triage'], ['warranty', 'Warranty claim'], ['damage', 'Damage fee'], ['resolved', 'Resolved']]
+export const PRIORITY = { high: ['danger', 'High'], medium: ['warning', 'Medium'], low: ['neutral', 'Low'] }
+
+const people = (r) => ({ roomId: r.id, dorm: r.dorm, room: r.room, tenant: r.tenant, photo: r.photo })
+
+// New subscriptions waiting for delivery, in rooms that have a tenant and no add-on yet.
+const ORDER_PLANS = [['living-basic'], ['study-pro'], ['fridge'], ['complete-living'], ['microwave'], ['living-basic'], ['chair'], ['study-pro'], ['purifier'], ['living-basic']]
+const LAST_WAVE = lastWave().getTime()
+const NEXT_WAVE = nextWaves()[0].getTime()
+export const ORDERS = [['garden', 3], ['chiangrak', 2], ['lotus', 3], ['bu', 2]]
+  .flatMap(([d, k]) => ROOMS.filter((r) => r.dorm === d && r.status === 'none' && r.tenant).slice(0, k))
+  .map((r, i) => {
+    const wave = [0, 4, 7].includes(i) ? LAST_WAVE : [1, 5, 8].includes(i) ? NEXT_WAVE : null
+    return {
+      id: `O-${1041 + i}`, ...people(r), productIds: ORDER_PLANS[i], term: i % 3 === 0 ? 12 : 6,
+      ordered: midnight(addDays(TODAY, -(12 - i))), wave, status: wave ? 'scheduled' : 'new',
+    }
+  })
+
+// Every unit has a serial. Installed units come from the rooms; the rest sit in the warehouse or are retired.
+const SKU_CODE = { fridge: 'FR', microwave: 'MW', chair: 'CH', desk: 'DK', purifier: 'AP' }
+let serialSeq = 30
+const asset = (sku, purchased, status, roomId = null) => ({
+  id: `${SKU_CODE[sku]}-${String(purchased.getFullYear()).slice(2)}${String(purchased.getMonth() + 1).padStart(2, '0')}-${String(serialSeq++).padStart(4, '0')}`,
+  sku, purchased, status, roomId, warrantyEnd: addMonths(purchased, SKUS[sku].warrantyMonths),
+})
+const IN_REPAIR = ['chiangrak-103:fridge'] // the open warranty claim below
+const WAREHOUSE = { fridge: 7, microwave: 6, chair: 5, desk: 3, purifier: 3 }
+export const ASSETS = [
+  ...ROOMS.filter((r) => r.productIds.length).flatMap((r) => r.productIds.flatMap((id) => getProduct(id).items)
+    .map((sku) => asset(sku, r.start, IN_REPAIR.includes(`${r.id}:${sku}`) ? 'repair' : 'installed', r.id))),
+  ...Object.entries(WAREHOUSE).flatMap(([sku, n]) => Array.from({ length: n }, (_, i) => asset(sku, midnight(addMonths(TODAY, -((i * 5) % 14))), 'warehouse'))),
+  asset('fridge', midnight(addMonths(TODAY, -40)), 'retired'),
+  asset('chair', midnight(addMonths(TODAY, -38)), 'retired'),
+  asset('microwave', midnight(addMonths(TODAY, -30)), 'retired'),
+]
+
+const ticket = (id, roomId, sku, title, type, priority, days, stage, extra) => ({
+  id, ...people(roomById(roomId)), sku, title, detail: '', type, priority, created: midnight(addDays(TODAY, -days)), stage, ...extra,
+})
+export const TICKETS = [
+  ticket('T-2091', 'chiangrak-205', 'chair', 'Gas lift sinks slowly', 'fault', 'medium', 0, 'new'),
+  ticket('T-2090', 'lotus-203', 'desk', 'Keypad stopped after a spill', 'damage', 'high', 1, 'new'),
+  ticket('T-2089', 'bu-102', 'chair', 'Caster wheel worn', 'wear', 'low', 1, 'new'),
+  ticket('T-2087', 'garden-304', 'microwave', 'Glass tray cracked', 'damage', 'medium', 2, 'triage', { detail: 'Dropped it while washing.' }),
+  ticket('T-2085', 'garden-302', 'purifier', 'Fan rattles on high', 'fault', 'medium', 3, 'triage'),
+  ticket('T-2082', 'chiangrak-103', 'fridge', 'Fridge not cooling', 'fault', 'high', 6, 'warranty', { outcome: 'warranty' }),
+  ticket('T-2079', 'garden-405', 'chair', 'Mesh seat torn', 'damage', 'medium', 8, 'damage', { outcome: 'damage', fee: 900, feeLabel: 'Torn chair mesh seat' }),
+  ticket('T-2074', 'garden-101', 'fridge', 'Door seal loose', 'fault', 'low', 14, 'resolved', { outcome: 'warranty' }),
+  ticket('T-2071', 'lotus-101', 'microwave', 'Scratches on the door', 'wear', 'low', 17, 'resolved', { outcome: 'wear' }),
+]
+
+// Exit requests = the rooms in their notice period. Notice was given 14 days before the last day.
+const EXIT_PLANS = {
+  'garden-202': ['transfer', 'Next tenant of room 202: Kwan P.'],
+  'chiangrak-108': ['relocate', 'Rangsit Park Condo, room 1512, Khlong Nueng'],
+  'garden-404': ['return'],
+  'lotus-104': ['return', '', 'scheduled'],
+}
+export const exitFor = (r, path, detail = '', status = 'pending', id = 'X-301') => ({
+  id, ...people(r), productIds: r.productIds, start: r.start, term: r.term, path, detail,
+  notice: r.moveOut, requested: addDays(r.moveOut, -NOTICE_DAYS), status, date: status === 'scheduled' ? exitDates(r.moveOut)[0].getTime() : null,
+})
+export const EXITS = ROOMS.filter((r) => r.status === 'notice').map((r, n) => {
+  const [path, detail, status] = EXIT_PLANS[r.id] ?? ['return']
+  return exitFor(r, path, detail, status, `X-${301 + n}`)
+})
+
+// Fees per pathway (OVERVIEW: early exit). Return = 600 + the lower of 1 month or 50% of the remaining balance.
+export function exitFees(x) {
+  const monthly = x.productIds.reduce((s, id) => s + getProduct(id).price, 0)
+  const remaining = Math.max(0, x.term - Math.max(0, monthsBetween(x.start, TODAY)))
+  const early = Math.min(monthly, Math.round((monthly * remaining) / 2))
+  return { monthly, remaining, early, deposit: depositFor(monthly), returnTotal: RETRIEVAL_FEE + early }
+}
+
+// Active subscriptions by month (same semester ramp as the landlord chart).
+export const subsHistory = (current) => [
+  ...RAMP.map((k, i) => ({ month: new Date(TODAY.getFullYear(), TODAY.getMonth() - 5 + i, 1), value: Math.round(current * k) })),
+  { month: new Date(TODAY.getFullYear(), TODAY.getMonth(), 1), value: current },
 ]

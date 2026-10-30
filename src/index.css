@@ -511,6 +511,76 @@ a { color: var(--primary); }
 
 /* Toast: bottom-right on desktop */
 .toast.dash-toast { left: auto; right: 24px; bottom: 24px; transform: none; width: 360px; pointer-events: none; } /* never blocks the sheet footer under it */
+.dash:has(.sheet-side) .dash-toast { right: 504px; } /* beside an open drawer, not over its footer buttons */
+
+/* ---------- Operator (O1–O6) ---------- */
+.nav-group { display: grid; gap: 2px; }
+.nav-group + .nav-group { margin-top: 8px; }
+.dash.collapsed .nav-group + .nav-group { margin-top: 0; padding-top: 6px; border-top: 1px solid var(--border); }
+.badge-muted { background: var(--surface-muted); color: var(--text-muted); }
+.cell-main { display: block; font-weight: 600; }
+.table-d small.truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.table-d input[type='checkbox'], .radio-d input { width: 16px; height: 16px; margin: 0; accent-color: var(--primary); }
+.table-d tfoot td { height: 48px; padding: 8px 12px; background: var(--surface-muted); border-top: 1px solid var(--border); }
+.table-wrap .table-d tfoot td:first-child { border-bottom-left-radius: 8px; }
+.table-wrap .table-d tfoot td:last-child { border-bottom-right-radius: 8px; }
+
+/* Grouped table: one tbody per dorm cluster */
+.grouped tbody:not(:last-child) tr:last-child td { border-bottom: 1px solid var(--border); }
+.group-row td { height: 40px; background: var(--surface-muted); }
+
+/* Wave cards (O2) */
+.wave-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.wave-card { padding: 16px 24px; display: grid; gap: 4px; align-content: start; justify-items: start; }
+.wave-top { width: 100%; display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.wave-top small { font-size: 12px; font-weight: 500; }
+.wave-card h2 { font-size: 16px; font-weight: 600; }
+.wave-clusters { font-size: 13px; }
+.wave-action { min-height: 40px; display: flex; align-items: flex-end; } /* same height with or without the button, so the table below doesn't jump */
+
+/* Radio rows inside sheets */
+.radio-list { margin-inline: 0; margin-bottom: 0; padding: 0; border: 0; display: grid; gap: 8px; min-width: 0; }
+.radio-list legend { padding: 0; margin-bottom: 4px; }
+.radio-d { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
+.radio-d:hover { background: var(--bg); }
+.radio-d:has(input:checked) { border-color: var(--primary); background: var(--primary-soft); }
+.radio-d:has(input:disabled) { cursor: default; }
+.radio-d .grow { flex: 1; min-width: 0; }
+.radio-d strong { display: block; font-weight: 500; }
+.radio-d small { display: block; font-size: 13px; color: var(--text-muted); }
+.radio-price { font-weight: 600; white-space: nowrap; }
+/* stack keeps its 16px gap; whole sections in a sheet get 24px */
+.sheet-side .stack > :is(section, fieldset) + *, .sheet-side .stack > * + :is(section, fieldset) { margin-top: 24px; }
+.lines + .caption { margin-top: 8px; }
+.sheet-side .lines .item-thumb { width: 28px; height: 28px; border-radius: 6px; }
+.quote { margin-inline: 0; margin-bottom: 0; padding: 8px 12px; border-left: 2px solid var(--border); color: var(--text-muted); }
+
+/* Kanban (O4) */
+.kanban { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; align-items: start; } /* all 5 stages visible at 1280 with the sidebar open */
+.kan-col { background: var(--surface-muted); border: 1px solid var(--border); border-radius: 8px; padding: 8px; display: grid; gap: 8px; min-width: 0; }
+.kan-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 4px 0; }
+.kan-head h2 { font-size: 14px; font-weight: 600; }
+.count-chip { min-width: 24px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-size: 12px; font-weight: 600; display: grid; place-items: center; }
+.kan-list { display: grid; gap: 8px; }
+.kan-card { width: 100%; min-width: 0; display: grid; gap: 8px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); box-shadow: var(--shadow-sm); color: var(--text); font: inherit; font-size: 14px; text-align: left; cursor: pointer; }
+.kan-card:hover { border-color: var(--text-muted); }
+.kan-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.kan-top strong { font-weight: 600; line-height: 1.35; min-width: 0; }
+.kan-item { display: flex; align-items: center; gap: 8px; font-size: 13px; min-width: 0; }
+.kan-item > span:first-of-type { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kan-item .item-thumb { width: 28px; height: 28px; border-radius: 6px; }
+.kan-fee { margin-left: auto; font-weight: 600; white-space: nowrap; }
+.kan-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 8px; font-size: 12px; color: var(--text-muted); }
+.kan-meta span { white-space: nowrap; }
+.kan-empty { padding: 16px 4px; text-align: center; font-size: 13px; color: var(--text-muted); }
+
+/* Confirm dialog (native <dialog>) */
+.dialog-d { width: 440px; max-width: calc(100% - 32px); padding: 0; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); box-shadow: var(--shadow-lg); font-size: 14px; }
+.dialog-d::backdrop { background: rgb(43 36 32 / .45); }
+.dialog-box { padding: 24px; display: grid; gap: 8px; }
+.dialog-box h2 { font-size: 18px; font-weight: 600; }
+.dialog-body { display: grid; gap: 8px; color: var(--text-muted); }
+.dialog-foot { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
 
 /* ---------- Before/after slider (T10 takeover) ---------- */
 .compare-slider { position: absolute; inset: 0; --pos: 50%; }

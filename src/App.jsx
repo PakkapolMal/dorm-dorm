@@ -4,7 +4,9 @@ import { BRAND, getProduct } from './data.js'
 import { StoreProvider, useRoute } from './store.jsx'
 import { Home, Catalog, Item, Cart, Checkout, Confirmed, Takeover, NotFound } from './tenant/shop.jsx'
 import { Room, Issue, Exit, Buyout, Bills, Help } from './tenant/room.jsx'
-import { Shell } from './landlord/Shell.jsx'
+import { LandlordShell } from './landlord/Shell.jsx'
+import { OperatorShell } from './operator/Shell.jsx'
+import { OpDashboard, Orders, Assets, Tickets, Exits, Partners, OperatorNotFound } from './operator/pages.jsx'
 import { Dashboard, Rooms, Invoices, LandlordNotFound } from './landlord/pages.jsx'
 
 function RolePicker() {
@@ -24,10 +26,11 @@ function RolePicker() {
             <div><strong>Landlord</strong><span>Rooms, invoices and your revenue share (desktop)</span></div>
             <ChevronRight size={18} className="chev" aria-hidden="true" />
           </a>
-          <span className="role" aria-disabled="true">
+          <a className="role" href="#/operator">
             <Truck size={24} color="var(--primary)" aria-hidden="true" />
-            <div><strong>Operator</strong><span>Coming soon</span></div>
-          </span>
+            <div><strong>Operator</strong><span>Delivery waves, assets, tickets and exits (desktop)</span></div>
+            <ChevronRight size={18} className="chev" aria-hidden="true" />
+          </a>
         </div>
       </div>
     </div>
@@ -45,6 +48,7 @@ function tenantTitle(page = '', sub) {
 }
 
 const LANDLORD_TITLES = { undefined: 'Dashboard', rooms: 'Rooms', invoices: 'Invoices' }
+const OPERATOR_TITLES = { undefined: 'Dashboard', orders: 'Orders', assets: 'Assets', tickets: 'Tickets', exits: 'Exit requests', partners: 'Partner dorms' }
 
 function Landlord({ page, sub, extra }) {
   let body
@@ -52,7 +56,14 @@ function Landlord({ page, sub, extra }) {
   else if (page === 'rooms') body = <Rooms openId={sub} inspect={extra === 'checkout'} />
   else if (page === 'invoices') body = <Invoices />
   else body = <LandlordNotFound />
-  return <Shell page={page} sub={sub}>{body}</Shell>
+  return <LandlordShell page={page} sub={sub}>{body}</LandlordShell>
+}
+
+const OPERATOR_PAGES = { undefined: OpDashboard, orders: Orders, assets: Assets, tickets: Tickets, exits: Exits, partners: Partners }
+
+function Operator({ page }) {
+  const Page = OPERATOR_PAGES[page] ?? OperatorNotFound
+  return <OperatorShell page={page}><Page /></OperatorShell>
 }
 
 function Routes() {
@@ -60,10 +71,12 @@ function Routes() {
 
   useEffect(() => {
     document.title = role === 'tenant' ? `${tenantTitle(page, sub)} · ${BRAND}`
-      : role === 'landlord' ? `${LANDLORD_TITLES[page] ?? 'Not found'} · ${BRAND}` : BRAND
+      : role === 'landlord' ? `${LANDLORD_TITLES[page] ?? 'Not found'} · ${BRAND}`
+      : role === 'operator' ? `${OPERATOR_TITLES[page] ?? 'Not found'} · ${BRAND}` : BRAND
   }, [role, page, sub])
 
   if (role === 'landlord') return <Landlord page={page} sub={sub} extra={extra} />
+  if (role === 'operator') return <Operator page={page} />
   if (role !== 'tenant') return <RolePicker />
   switch (page) {
     case undefined: return <Home />

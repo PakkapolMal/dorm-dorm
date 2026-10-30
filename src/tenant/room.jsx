@@ -173,7 +173,7 @@ const ISSUE_TYPES = [
 
 export function Issue() {
   const s = useSub()
-  const { showToast } = useStore()
+  const { showToast, addTicket } = useStore()
   const [sku, setSku] = useState(s?.skus[0])
   const [type, setType] = useState('fault')
   const [text, setText] = useState('')
@@ -195,7 +195,8 @@ export function Issue() {
 
   const cost = type === 'damage' ? 'Per fee schedule' : '0 THB'
   const submit = () => {
-    const id = `T-${Math.floor(1000 + Math.random() * 9000)}`
+    const title = { fault: 'not working', damage: 'damaged', wear: 'worn or scratched' }[type]
+    const id = addTicket({ dorm: s.dorm, room: s.room, sku, type, detail: text.trim(), title: `${SKUS[sku].short} ${title}` })
     setSent(id)
     showToast(`Ticket ${id} sent`)
   }
@@ -244,7 +245,7 @@ export function Issue() {
 // ---------- T7 Leave early / end subscription ----------
 export function Exit() {
   const s = useSub()
-  const { setSubscription, subscription, showToast } = useStore()
+  const { setSubscription, subscription, showToast, addExit } = useStore()
   const [path, setPath] = useState('transfer')
   const [detail, setDetail] = useState('')
   const [done, setDone] = useState(false)
@@ -264,6 +265,7 @@ export function Exit() {
 
   const submit = () => {
     setSubscription({ ...subscription, status: 'notice' })
+    addExit({ ...subscription, path: ended ? 'end' : path, detail: path === 'return' ? '' : detail.trim() })
     showToast('Request sent')
     setDone(true)
   }

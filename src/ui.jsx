@@ -186,3 +186,27 @@ export function Stepper({ steps, current, label = 'Checkout progress' }) {
     </ol>
   )
 }
+
+// Small centered confirm (DESIGN §5 Dialog). Native <dialog> gives the focus trap, Esc and the backdrop.
+export function Dialog({ title, confirm, onConfirm, onClose, children }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    const prev = document.activeElement
+    ref.current.showModal()
+    return () => prev?.focus?.()
+  }, [])
+  return (
+    // Esc stays here, so a sheet underneath doesn't close too. Clicking the backdrop (the dialog box itself) cancels.
+    <dialog ref={ref} className="dialog-d" aria-labelledby="dialog-title" onClose={onClose}
+      onKeyDown={(e) => e.key === 'Escape' && e.stopPropagation()} onClick={(e) => e.target === ref.current && onClose()}>
+      <div className="dialog-box">
+        <h2 id="dialog-title">{title}</h2>
+        <div className="dialog-body">{children}</div>
+        <div className="dialog-foot">
+          <button type="button" className="btn-d btn-outline" onClick={onClose} autoFocus>Cancel</button>
+          <button type="button" className="btn-d btn-primary" onClick={onConfirm}>{confirm}</button>
+        </div>
+      </div>
+    </dialog>
+  )
+}
