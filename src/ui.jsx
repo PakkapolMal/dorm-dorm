@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { X, Check } from 'lucide-react'
+import { X, Check, ChevronsLeftRight } from 'lucide-react'
 import { SKUS } from './data.js'
 
 // <img> that swaps to `fallback` if the file fails to load.
@@ -93,6 +93,23 @@ export function Avatar({ name, photo, children }) {
     <span className="avatar" aria-hidden="true">
       <Photo src={photo} alt="" fallback={children ?? name.split(' ').map((w) => w[0]).join('').slice(0, 2)} />
     </span>
+  )
+}
+
+// Before/after photo slider. A native range input (opacity 0, full size) does drag, tap and arrow keys;
+// the before photo is clipped to the slider position.
+export function CompareSlider({ before, after, beforeLabel, afterLabel, label }) {
+  const [pos, setPos] = useState(50)
+  return (
+    <div className="compare-slider" style={{ '--pos': `${pos}%` }}>
+      <img className="photo" src={after.src} alt={after.alt} fetchPriority="high" decoding="async" />
+      <img className="photo compare-before" src={before.src} alt={before.alt} decoding="async" />
+      <span className="compare-tag left" aria-hidden="true">{beforeLabel}</span>
+      <span className="compare-tag right" aria-hidden="true">{afterLabel}</span>
+      <span className="compare-handle" aria-hidden="true"><ChevronsLeftRight size={18} /></span>
+      <input type="range" min={0} max={100} value={pos} onChange={(e) => setPos(Number(e.target.value))}
+        aria-label={label} aria-valuetext={`${pos}% ${beforeLabel.toLowerCase()} shown`} />
+    </div>
   )
 }
 

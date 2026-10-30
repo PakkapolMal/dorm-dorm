@@ -6,7 +6,7 @@ import {
 } from '../data.js'
 import { useStore, go } from '../store.jsx'
 import { Page, ActionBar } from './Shell.jsx'
-import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons, Gallery } from '../ui.jsx'
+import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons, Gallery, CompareSlider } from '../ui.jsx'
 
 const BENEFITS = ['Free delivery and setup on wave days', 'Maintenance and repairs included', 'Manufacturer warranty covered']
 
@@ -552,7 +552,13 @@ export function Takeover() {
         <button className="btn btn-primary" onClick={accept}>Take over</button>
       </ActionBar>
     }>
-      <div className="room-photo"><Photo src={t.image} eager alt={`Room ${t.room} with the add-ons installed`} fallback={<Icons ids={items.flatMap((p) => p.items)} size={56} label={`Room ${t.room} add-ons`} />} /></div>
+      {t.emptyImage ? (
+        <div className="room-photo">
+          <CompareSlider label={`Compare Room ${t.room} empty and with the add-ons`}
+            before={{ src: t.emptyImage, alt: `Room ${t.room} without add-ons` }} beforeLabel="Empty room"
+            after={{ src: t.image, alt: `Room ${t.room} with ${items.map((p) => p.name).join(', ')} installed` }} afterLabel="With add-ons" />
+        </div>
+      ) : <div className="room-photo"><Photo src={t.image} eager alt={`Room ${t.room} with the add-ons installed`} fallback={<Icons ids={items.flatMap((p) => p.items)} size={56} label={`Room ${t.room} add-ons`} />} /></div>}
       <Badge tone="info">Pre-upgraded room</Badge>
       <h1 className="page-title" style={{ marginTop: 10 }}>{dorm.name}, Room {t.room}</h1>
       <p className="caption" style={{ marginTop: 4 }}>{t.note}</p>
