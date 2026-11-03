@@ -21,7 +21,7 @@ All photos are in `public/images/` (product and room photos in `room/`, people i
 
 ## People
 
-Avatar photos for the landlord pages (sidebar, Recent activity, and the Rooms table Tenant column) are in `public/images/people/`. Each was downloaded from the Unsplash CDN on 2026-10-29, already face-cropped to 160×160 WebP. They are stand-ins for fictional mock people. The names and roles are invented and have nothing to do with the people photographed.
+Avatar photos for the landlord and operator pages are in `public/images/people/`. Each was downloaded from the Unsplash CDN on 2026-10-29, already face-cropped to 160×160 WebP. They are stand-ins for fictional mock people. The names and roles are invented and have nothing to do with the people photographed.
 
 | File | Used for | Photographer | Source | License |
 |---|---|---|---|---|
@@ -60,5 +60,25 @@ Avatar photos for the landlord pages (sidebar, Recent activity, and the Rooms ta
 | `people/chaiwat.webp` | Chaiwat P. (tenant, Rooms table) | ri | https://unsplash.com/photos/a-man-standing-in-front-of-a-yellow-sign-KftI0sQUl1Q | Unsplash |
 | `people/pakorn.webp` | Pakorn L. (tenant, Rooms table) | Bùi Hoàng Long | https://unsplash.com/photos/a-man-standing-in-front-of-a-window-with-his-hand-on-his-chin-6m_wGoAlJbA | Unsplash |
 | `people/teerawat.webp` | Teerawat D. (tenant, Rooms table) | abdullah ali | https://unsplash.com/photos/a-man-standing-in-front-of-a-camera-with-his-arms-crossed-V4bv8rtprTE | Unsplash |
+| `people/bussaba.webp` | Bussaba T. (tenant, Lotus Place / Phahon Student House, operator pages) | oktavianus mulyadi | https://unsplash.com/photos/a-person-with-dark-hair-N6Pfi3d8duc | Unsplash |
+| `people/chalita.webp` | Chalita R. (tenant, Lotus Place / Phahon Student House, operator pages) | Phước Sang | https://unsplash.com/photos/young-woman-smiling-while-resting-her-chin-on-hand-jBqMJdzTcgA | Unsplash |
+| `people/fasai.webp` | Fasai N. (tenant, Lotus Place / Phahon Student House, operator pages) | Vitaly Gariev | https://unsplash.com/photos/smiling-woman-with-long-dark-hair-against-colorful-wall-ZoSb5J3jU28 | Unsplash |
+| `people/jutamas.webp` | Jutamas L. (tenant, Lotus Place / Phahon Student House, operator pages) | Vitaly Gariev | https://unsplash.com/photos/woman-smiling-at-office-computer-GtWJvhttYmg | Unsplash |
+| `people/lalita.webp` | Lalita M. (tenant, Lotus Place / Phahon Student House, operator pages) | Sou Jest | https://unsplash.com/photos/a-smiling-woman-with-long-hair-framed-by-bokeh-lights-AFi1ZzxeXdI | Unsplash |
+| `people/nalin.webp` | Nalin O. (tenant, Lotus Place / Phahon Student House, operator pages) | Elist Nguyen | https://unsplash.com/photos/a-woman-with-a-flower-in-her-hair-Sb23oFF75mw | Unsplash |
+| `people/orathai.webp` | Orathai B. (tenant, Lotus Place / Phahon Student House, operator pages) | Riki Ramdani | https://unsplash.com/photos/woman-in-black-crew-neck-shirt-yXTz6_Wyjrc | Unsplash |
+| `people/tharinee.webp` | Tharinee G. (tenant, Lotus Place / Phahon Student House, operator pages) | Anthony Tran | https://unsplash.com/photos/woman-in-gray-coat-standing-near-green-plants-3Xkms-gMvZg | Unsplash |
+| `people/yupin.webp` | Yupin E. (tenant, Lotus Place / Phahon Student House, operator pages) | Larm Rmah | https://unsplash.com/photos/woman-wearing-white-top-near-metal-case-GJnyw_HASdA | Unsplash |
+| `people/akkarin.webp` | Akkarin P. (tenant, Lotus Place / Phahon Student House, operator pages) | Divyank Sachdeva | https://unsplash.com/photos/a-man-with-glasses-smiling-for-the-camera-iQLqpFqzwnc | Unsplash |
+| `people/danai.webp` | Danai S. (tenant, Lotus Place / Phahon Student House, operator pages) | Grace Anne Bobadilla | https://unsplash.com/photos/young-person-wearing-a-white-baseball-cap-NpyAFjcQiDE | Unsplash |
+| `people/ekkachai.webp` | Ekkachai W. (tenant, Lotus Place / Phahon Student House, operator pages) | AL Kaium | https://unsplash.com/photos/young-man-in-patterned-shirt-stands-outdoors-hnJR0I5Nd94 | Unsplash |
+| `people/itsara.webp` | Itsara K. (tenant, Lotus Place / Phahon Student House, operator pages) | Josias Garibay | https://unsplash.com/photos/a-smiling-young-man-in-a-dark-blue-sweater-rifCUO-4X8k | Unsplash |
+| `people/kamon.webp` | Kamon C. (tenant, Lotus Place / Phahon Student House, operator pages) | Alexis rodriguez | https://unsplash.com/photos/a-man-with-dark-hair-DVynTerQG4Q | Unsplash |
+| `people/manop.webp` | Manop D. (tenant, Lotus Place / Phahon Student House, operator pages) | Timur Garifov | https://unsplash.com/photos/man-in-black-crew-neck-t-shirt-EGP4Eizz3JM | Unsplash |
+| `people/panupong.webp` | Panupong V. (tenant, Lotus Place / Phahon Student House, operator pages) | Pj Go | https://unsplash.com/photos/man-in-white-crew-neck-t-shirt-and-brown-pants-sitting-on-white-chair-1assCt31JVc | Unsplash |
+| `people/ratchanon.webp` | Ratchanon H. (tenant, Lotus Place / Phahon Student House, operator pages) | Beth Macdonald | https://unsplash.com/photos/boy-in-white-button-up-shirt-t30QzMPhSZ8 | Unsplash |
+| `people/sakda.webp` | Sakda J. (tenant, Lotus Place / Phahon Student House, operator pages) | Irish83 | https://unsplash.com/photos/man-in-black-crew-neck-shirt-wearing-black-sunglasses-i6--wLjMqLc | Unsplash |
+| `people/uthai.webp` | Uthai F. (tenant, Lotus Place / Phahon Student House, operator pages) | Tan Duong | https://unsplash.com/photos/man-in-maroon-polo-shirt-a6TduvXQWzw | Unsplash |
+| `people/varit.webp` | Varit Y. (tenant, Lotus Place / Phahon Student House, operator pages) | mhmd Doo | https://unsplash.com/photos/a-man-with-a-scarf-around-his-neck--HBKndM8j5A | Unsplash |
 
 The photos are illustrative only. The products shown are not the exact models listed in OVERVIEW.md, and dorm-dorm has no affiliation with the photographers or brands.

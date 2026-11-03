@@ -209,7 +209,7 @@ const FIXED_TENANTS = {
 const TENANT_POOL = ['Siwakorn T.', 'Natcha B.', 'Pongsakorn M.', 'Kanokwan D.', 'Jirayu N.', 'Benjamas O.', 'Phum A.', 'Mintra F.',
   'Kittipat E.', 'Arisa V.', 'Krit W.', 'Pimchanok L.', 'Tanapat J.', 'Chanya P.', 'Thanakorn B.', 'Kanya S.', 'Weerapat S.',
   'Pornthip R.', 'Anan K.', 'Nattaya K.', 'Chaiwat P.', 'Duangjai M.', 'Pakorn L.', 'Rattana W.', 'Teerawat D.', 'Supitcha N.', 'Thida C.',
-  // Lotus Place + Phahon Student House (no photos: initials)
+  // Lotus Place + Phahon Student House (operator only)
   'Akkarin P.', 'Bussaba T.', 'Chalita R.', 'Danai S.', 'Ekkachai W.', 'Fasai N.', 'Itsara K.', 'Jutamas L.', 'Kamon C.', 'Lalita M.',
   'Manop D.', 'Nalin O.', 'Orathai B.', 'Panupong V.', 'Ratchanon H.', 'Sakda J.', 'Tharinee G.', 'Uthai F.', 'Varit Y.', 'Yupin E.']
 // Tenant name -> photo in public/images/people/ (credits: docs/IMAGE_CREDITS.md). No entry = initials.
@@ -223,6 +223,11 @@ const PHOTOS = {
   'Jirayu N.': 'jirayu', 'Phum A.': 'phum', 'Kittipat E.': 'kittipat', 'Krit W.': 'krit', 'Tanapat J.': 'tanapat',
   'Thanakorn B.': 'thanakorn', 'Weerapat S.': 'weerapat', 'Anan K.': 'anan', 'Chaiwat P.': 'chaiwat',
   'Pakorn L.': 'pakorn', 'Teerawat D.': 'teerawat',
+  'Bussaba T.': 'bussaba', 'Chalita R.': 'chalita', 'Fasai N.': 'fasai', 'Jutamas L.': 'jutamas',
+  'Lalita M.': 'lalita', 'Nalin O.': 'nalin', 'Orathai B.': 'orathai', 'Tharinee G.': 'tharinee', 'Yupin E.': 'yupin',
+  'Akkarin P.': 'akkarin', 'Danai S.': 'danai', 'Ekkachai W.': 'ekkachai', 'Itsara K.': 'itsara', 'Kamon C.': 'kamon',
+  'Manop D.': 'manop', 'Panupong V.': 'panupong', 'Ratchanon H.': 'ratchanon', 'Sakda J.': 'sakda',
+  'Uthai F.': 'uthai', 'Varit Y.': 'varit',
 }
 let nextTenant = 0
 const midnight = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate())

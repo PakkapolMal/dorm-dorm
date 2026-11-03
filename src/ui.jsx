@@ -98,8 +98,19 @@ export function Avatar({ name, photo, children }) {
 
 // Before/after photo slider. A native range input (opacity 0, full size) does drag, tap and arrow keys;
 // the before photo is clipped to the slider position.
-export function CompareSlider({ before, after, beforeLabel, afterLabel, label }) {
+// onTap (optional): a tap without dragging, or Enter, calls it instead of moving the slider (used as a link).
+export function CompareSlider({ before, after, beforeLabel, afterLabel, label, onTap }) {
   const [pos, setPos] = useState(50)
+  const down = useRef(null)
+  const tap = onTap && {
+    onPointerDown: (e) => { down.current = { x: e.clientX, y: e.clientY, pos } },
+    onPointerUp: (e) => {
+      const d = down.current
+      down.current = null
+      if (d && Math.hypot(e.clientX - d.x, e.clientY - d.y) < 6) { setPos(d.pos); onTap() }
+    },
+    onKeyDown: (e) => { if (e.key === 'Enter') onTap() },
+  }
   return (
     <div className="compare-slider" style={{ '--pos': `${pos}%` }}>
       <img className="photo" src={after.src} alt={after.alt} fetchPriority="high" decoding="async" />
@@ -108,7 +119,7 @@ export function CompareSlider({ before, after, beforeLabel, afterLabel, label })
       <span className="compare-tag right" aria-hidden="true">{afterLabel}</span>
       <span className="compare-handle" aria-hidden="true"><ChevronsLeftRight size={18} /></span>
       <input type="range" min={0} max={100} value={pos} onChange={(e) => setPos(Number(e.target.value))}
-        aria-label={label} aria-valuetext={`${pos}% ${beforeLabel.toLowerCase()} shown`} />
+        aria-label={label} aria-valuetext={`${pos}% ${beforeLabel.toLowerCase()} shown`} {...tap} />
     </div>
   )
 }

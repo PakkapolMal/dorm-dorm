@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Plus, Check, ChevronRight, KeyRound, TriangleAlert, Info, Truck, ShieldCheck, Wrench, CircleCheck, Trash2, ShoppingCart, Calendar } from 'lucide-react'
+import { Plus, Check, ChevronRight, TriangleAlert, Info, Truck, ShieldCheck, Wrench, CircleCheck, Trash2, ShoppingCart, Calendar } from 'lucide-react'
 import {
   SKUS, BUNDLES, getProduct, bundleSaving, thb, ADDON_CAP, SETUP_FEE, BASE_RENT, CONDO_FLOOR,
   PARTNER_DORMS, depositFor, nextWaves, fmtDay, fmtDate, DAMAGE_FEES, NORMAL_WEAR, TAKEOVER_ROOM, BRAND, TODAY, thbMo, HERO_IMAGE,
@@ -113,10 +113,17 @@ export function Home() {
         </section>
 
         <section className="section" style={{ marginBottom: 8 }}>
-          <a className="takeover-link" href="#/tenant/takeover">
-            <KeyRound size={20} aria-hidden="true" />
-            <span><strong>Moved into a pre-upgraded room?</strong>Take over the add-ons already there. No setup fee.</span>
-            <ChevronRight size={18} aria-hidden="true" />
+          <h2 className="section-title">Same room, upgraded</h2>
+          <p className="caption" style={{ marginTop: 4 }}>
+            Pre-upgraded rooms come with a fridge and microwave already in. Take one over with no setup fee.
+          </p>
+          <div className="teaser-photo">
+            <CompareSlider label="Compare an empty room with a pre-upgraded one. Press Enter to see the room." onTap={() => go('/tenant/takeover')}
+              before={{ src: TAKEOVER_ROOM.emptyImage, alt: 'Dorm room before the add-ons' }} beforeLabel="Before"
+              after={{ src: TAKEOVER_ROOM.image, alt: 'The same room with a fridge and microwave installed' }} afterLabel="Pre-upgraded" />
+          </div>
+          <a className="btn btn-secondary" href="#/tenant/takeover" style={{ marginTop: 12 }}>
+            See the pre-upgraded room <ChevronRight size={18} aria-hidden="true" />
           </a>
         </section>
       </div>
