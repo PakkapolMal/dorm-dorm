@@ -26,6 +26,7 @@ Avatar photos for the landlord and operator pages are in `public/images/people/`
 | File | Used for | Photographer | Source | License |
 |---|---|---|---|---|
 | `people/landlord.webp` | Malee Wongsakul (landlord, sidebar) | Annika Palmari | https://unsplash.com/photos/woman-in-black-blazer-smiling-RIt88XBR3G0 | Unsplash |
+| `people/operator.webp` | Kanda Srisuk (operator staff, sidebar) | Vitaly Gariev | https://unsplash.com/photos/a-smiling-woman-with-glasses-in-an-office-APjRQ59peUg | Unsplash |
 | `people/ploy.webp` | Ploy K., Rangsit Garden 304 | Hưng Nguyễn | https://unsplash.com/photos/woman-in-white-long-sleeve-shirt-and-black-skirt-sitting-on-brown-wooden-bench-during-daytime-B-y35HV0MX0 | Unsplash |
 | `people/sirinya.webp` | Sirinya H., Rangsit Garden 202 | Dev Asangbam | https://unsplash.com/photos/smiling-woman-in-white-button-up-shirt-3NSCIipl-EQ | Unsplash |
 | `people/napat.webp` | Napat S., Rangsit Garden 303 | Juan Encalada | https://unsplash.com/photos/man-in-denim-shirt-at-desk-WC7KIHo13Fc | Unsplash |

@@ -334,7 +334,7 @@ export const ACTIVITY = [
 ]
 
 // ---------- operator ----------
-export const OPERATOR = { name: 'Kanda Srisuk', email: `kanda@${BRAND.toLowerCase()}.example` }
+export const OPERATOR = { name: 'Kanda Srisuk', email: `kanda@${BRAND.toLowerCase()}.example`, photo: IMG + 'people/operator.webp' }
 
 // Delivery clusters = the area before the comma ("Khlong Nueng, near TU Rangsit" -> "Khlong Nueng").
 export const clusterOf = (dorm) => PARTNER_DORMS.find((d) => d.id === dorm).area.split(',')[0]
