@@ -29,7 +29,7 @@ function RolePicker() {
           </a>
           <a className="role" href="#/operator">
             <Truck size={24} color="var(--primary)" aria-hidden="true" />
-            <div><strong>Operator</strong><span>Delivery waves, assets, tickets and exits (desktop)</span></div>
+            <div><strong>Operator</strong><span>Deliveries, assets, tickets and exits (desktop)</span></div>
             <ChevronRight size={18} className="chev" aria-hidden="true" />
           </a>
         </div>

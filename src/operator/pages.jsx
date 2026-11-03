@@ -47,13 +47,13 @@ export function OpDashboard() {
   return (
     <>
       <PageHeader title="Operations overview" desc={`${PARTNER_DORMS.length} partner dorms in the Rangsit zone · ${fmtDate(TODAY)}`}
-        action={<a className="btn-d btn-primary" href="#/operator/orders"><Truck size={16} aria-hidden="true" />Plan delivery wave</a>} />
+        action={<a className="btn-d btn-primary" href="#/operator/orders"><Truck size={16} aria-hidden="true" />Plan delivery</a>} />
 
       <div className="kpi-grid">
         <Kpi label="Active subscriptions" value={subs} now={subs} prev={history[4].value}
           insight={`${Math.round((subs / rooms.length) * 100)}% of partner rooms`} caption={`${rooms.length} rooms in ${PARTNER_DORMS.length} dorms`} />
-        <Kpi label="Next wave orders" value={onNext.length} now={onNext.length} prev={onLast.length} vs="last wave"
-          insight={`${fmtDay(next)} wave`} caption={`${plural(items, 'item')} to deliver`} />
+        <Kpi label="Next delivery orders" value={onNext.length} now={onNext.length} prev={onLast.length} vs="last delivery"
+          insight={`${fmtDay(next)} delivery`} caption={`${plural(items, 'item')} to deliver`} />
         <Kpi label="Open tickets" value={open.length} now={open.length} prev={open.length + 2} vs="last week"
           insight={`${tickets.filter((t) => t.stage === 'new').length} waiting for triage`} caption={`${plural(tickets.filter((t) => t.stage === 'warranty').length, 'warranty claim')} open`} />
         <Kpi label="Pending exits" value={pending.length} now={pending.length} prev={Math.max(1, pending.length - 1)} vs="last week"
@@ -70,7 +70,7 @@ export function OpDashboard() {
         </section>
         <section className="card-d">
           <div className="card-d-head">
-            <h2>Upcoming wave · {fmtDay(next)}</h2>
+            <h2>Upcoming delivery · {fmtDay(next)}</h2>
             <p className="muted">{plural(onNext.length, 'order')} · {plural(items, 'item')} · {plural(new Set(onNext.map((o) => clusterOf(o.dorm))).size, 'cluster')}</p>
           </div>
           <div className="card-d-body act-list">
@@ -87,8 +87,8 @@ export function OpDashboard() {
             {!onNext.length && (
               <div className="center-state compact">
                 <div className="circle circle-muted"><CalendarDays size={24} aria-hidden="true" /></div>
-                <strong>No orders on this wave yet</strong>
-                <p>Assign new orders from Orders & waves.</p>
+                <strong>No orders on this delivery yet</strong>
+                <p>Assign new orders from Orders & deliveries.</p>
               </div>
             )}
           </div>
@@ -109,8 +109,10 @@ export function Orders() {
   const last = lastWave().getTime()
   const waves = [last, ...nextWaves(TODAY, 2).map((d) => d.getTime())]
   const canSelect = (o) => o.status === 'new' || (o.status === 'scheduled' && o.wave !== last)
+  // Orders on a past wave can no longer change, so they read as delivered.
+  const statusOf = (o) => (canSelect(o) ? o.status : 'delivered')
   const q = cleanQuery(search)
-  const filtered = orders.filter((o) => (!statuses.length || statuses.includes(o.status)) && (matches(o, q) || o.id.toLowerCase().includes(q)))
+  const filtered = orders.filter((o) => (!statuses.length || statuses.includes(statusOf(o))) && (matches(o, q) || o.id.toLowerCase().includes(q)))
   const toggle = (ids, on) => setSel((s) => (on ? [...new Set([...s, ...ids])] : s.filter((x) => !ids.includes(x))))
   const batch = delivering && orders.filter((o) => o.wave === delivering && o.status === 'scheduled')
 
@@ -135,9 +137,9 @@ export function Orders() {
 
   return (
     <>
-      <PageHeader title="Orders & delivery waves" desc="Group new orders by dorm cluster, then deliver them on a Wednesday or Saturday wave"
+      <PageHeader title="Orders & deliveries" desc="Group new orders by dorm cluster, then deliver them on a Wednesday or Saturday delivery day"
         action={<button type="button" className="btn-d btn-primary" disabled={!sel.length} onClick={() => setAssigning(true)}>
-          <CalendarDays size={16} aria-hidden="true" />Assign to wave{sel.length ? ` (${sel.length})` : ''}
+          <CalendarDays size={16} aria-hidden="true" />Assign delivery{sel.length ? ` (${sel.length})` : ''}
         </button>} />
 
       <div className="wave-grid">
@@ -146,7 +148,7 @@ export function Orders() {
           const todo = ws.filter((o) => o.status === 'scheduled')
           const isLast = w === last
           return (
-            <section key={w} className="card-d wave-card" aria-label={`Wave ${fmtDay(new Date(w))}`}>
+            <section key={w} className="card-d wave-card" aria-label={`Delivery ${fmtDay(new Date(w))}`}>
               <div className="wave-top">
                 <div>
                   <small className="muted">{isLast ? (daysAgo(new Date(w)) === 0 ? 'Today' : 'Out for delivery') : 'Upcoming'}</small>
@@ -169,7 +171,7 @@ export function Orders() {
       <div className="toolbar">
         <SearchBox label="Search orders or rooms" value={search} onChange={setSearch} />
         <Facet title="Status" selected={statuses} onChange={setStatuses}
-          options={Object.entries(ORDER_STATUS).map(([value, [, label]]) => ({ value, label, count: orders.filter((o) => o.status === value).length }))} />
+          options={Object.entries(ORDER_STATUS).map(([value, [, label]]) => ({ value, label, count: orders.filter((o) => statusOf(o) === value).length }))} />
       </div>
 
       <div className="table-wrap">
@@ -177,7 +179,7 @@ export function Orders() {
           <thead>
             <tr>
               <th style={{ width: 48 }}><span className="sr-only">Select</span></th><th style={{ width: 96 }}>Order</th><th style={{ width: '17%' }}>Room</th>
-              <th style={{ width: '16%' }}>Tenant</th><th>Items</th><th style={{ width: 80 }}>Term</th><th style={{ width: 136 }}>Wave</th><th style={{ width: 120 }}>Status</th>
+              <th style={{ width: '16%' }}>Tenant</th><th>Items</th><th style={{ width: 80 }}>Term</th><th style={{ width: 136 }}>Delivery</th><th style={{ width: 120 }}>Status</th>
             </tr>
           </thead>
           {CLUSTERS.map((c) => {
@@ -200,7 +202,7 @@ export function Orders() {
                     <td><AddonCell room={o} /></td>
                     <td>{o.term} mo</td>
                     <td>{o.wave ? fmtDay(new Date(o.wave)) : <span className="muted">Not assigned</span>}</td>
-                    <td><StatusBadge map={ORDER_STATUS} status={o.status} /></td>
+                    <td><StatusBadge map={ORDER_STATUS} status={statusOf(o)} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -239,7 +241,7 @@ function AssignSheet({ ids, onClose, onDone }) {
     onDone()
   }
   return (
-    <Sheet side title="Assign to wave" onClose={onClose}>
+    <Sheet side title="Assign delivery" onClose={onClose}>
       <form className="sheet-form" onSubmit={submit}>
         <div className="sheet-body stack">
           <section>
@@ -252,14 +254,14 @@ function AssignSheet({ ids, onClose, onDone }) {
             </div>
           </section>
           <fieldset className="radio-list">
-            <legend className="sheet-section">Wave day</legend>
+            <legend className="sheet-section">Delivery day</legend>
             {upcoming.map((d) => {
               const t = d.getTime()
               const on = orders.filter((o) => o.wave === t && !ids.includes(o.id)).length
               return (
                 <label key={t} className="radio-d">
                   <input type="radio" name="wave" value={t} checked={wave === t} onChange={() => setWave(t)} />
-                  <span className="grow"><strong>{fmtDay(d)}</strong><small>{on ? `${plural(on, 'order')} already on this wave` : 'No orders yet'}</small></span>
+                  <span className="grow"><strong>{fmtDay(d)}</strong><small>{on ? `${plural(on, 'order')} already on this delivery` : 'No orders yet'}</small></span>
                 </label>
               )
             })}
@@ -274,9 +276,9 @@ function AssignSheet({ ids, onClose, onDone }) {
                 </div>
               ))}
             </div>
-            <p className="caption">Counts every order on a wave that is not delivered yet.</p>
+            <p className="caption">Counts every order with a delivery date that is not delivered yet.</p>
           </section>
-          {short.length > 0 && <Banner tone="warning" icon={TriangleAlert}>Not enough {short.map((s) => SKUS[s].short.toLowerCase()).join(', ')} in the warehouse. Restock before the wave.</Banner>}
+          {short.length > 0 && <Banner tone="warning" icon={TriangleAlert}>Not enough {short.map((s) => SKUS[s].short.toLowerCase()).join(', ')} in the warehouse. Restock before the delivery.</Banner>}
         </div>
         <div className="sheet-foot">
           <button type="button" className="btn-d btn-outline" onClick={onClose}>Cancel</button>
@@ -662,9 +664,9 @@ function WaveSelect({ label, dates, value, onChange, disabled }) {
     <label className="field-d">
       <span>{label}</span>
       <select className="input-d" value={value} onChange={(e) => onChange(Number(e.target.value))} disabled={disabled}>
-        {dates.map((d) => <option key={d.getTime()} value={d.getTime()}>{fmtDay(d)} wave</option>)}
+        {dates.map((d) => <option key={d.getTime()} value={d.getTime()}>{fmtDay(d)}</option>)}
       </select>
-      <small className="muted">Wave days on or after the last day of notice.</small>
+      <small className="muted">Delivery days on or after the last day of notice.</small>
     </label>
   )
 }

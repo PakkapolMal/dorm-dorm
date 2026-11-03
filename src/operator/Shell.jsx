@@ -8,7 +8,7 @@ const NAV = [
   {
     label: 'Operations',
     items: [
-      { key: 'orders', label: 'Orders & waves', href: '#/operator/orders', icon: Truck },
+      { key: 'orders', label: 'Orders & deliveries', href: '#/operator/orders', icon: Truck },
       { key: 'assets', label: 'Assets', href: '#/operator/assets', icon: Boxes },
       { key: 'tickets', label: 'Issue tickets', href: '#/operator/tickets', icon: Wrench },
       { key: 'exits', label: 'Exit requests', href: '#/operator/exits', icon: LogOut },
@@ -31,7 +31,7 @@ export function OperatorShell({ page, children }) {
   const items = [
     ...tickets.filter((t) => t.stage === 'new').map((t) => ({ key: t.id, at: t.created, href: '#/operator/tickets', title: `Ticket ${t.id}`, text: `${t.title}, room ${t.room}` })),
     ...exits.filter((x) => x.status === 'pending').map((x) => ({ key: x.id, at: x.requested, href: '#/operator/exits', title: x.tenant, text: `Gave notice, room ${x.room}` })),
-    ...orders.filter((o) => o.status === 'new').map((o) => ({ key: o.id, at: o.ordered, href: '#/operator/orders', title: `Order ${o.id}`, text: `Needs a wave, room ${o.room}` })),
+    ...orders.filter((o) => o.status === 'new').map((o) => ({ key: o.id, at: o.ordered, href: '#/operator/orders', title: `Order ${o.id}`, text: `Needs a delivery date, room ${o.room}` })),
   ].sort((a, b) => b.at - a.at).slice(0, 5).map((n) => ({ ...n, when: ago(n.at), isNew: daysAgo(n.at) <= 2 }))
 
   return (

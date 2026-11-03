@@ -366,6 +366,7 @@ export function Invoices() {
         <div><small>{BRAND} add-ons</small><strong className="num">{thb(addon)}</strong></div>
         <div><small>Your {REVENUE_SHARE * 100}% share</small><strong className="num">{thb(Math.round(addon * REVENUE_SHARE))}</strong></div>
         <div><small>Pay to {BRAND} (85%)</small><strong className="num">{thb(addon - Math.round(addon * REVENUE_SHARE))}</strong></div>
+        <div><small>Your net income</small><strong className="num">{thb(sum(all.map((i) => i.total)) - addon + Math.round(addon * REVENUE_SHARE))}</strong></div>
       </section>
 
       <div className="toolbar">
@@ -421,15 +422,20 @@ export function Invoices() {
               ))}
               <div className="line total"><span>Total</span><span className="amount">{thb(open.total)}</span></div>
             </div>
-            {open.addon > 0 && (
-              <div className="split">
-                <h3 className="sheet-section">Add-on split</h3>
-                <div className="lines">
-                  <div className="line"><span>Your {REVENUE_SHARE * 100}% share</span><span className="amount">{thb(Math.round(open.addon * REVENUE_SHARE))}</span></div>
-                  <div className="line"><span>Pay to {BRAND} (85%)</span><span className="amount">{thb(open.addon - Math.round(open.addon * REVENUE_SHARE))}</span></div>
+            {open.addon > 0 && (() => {
+              const toBrand = open.addon - Math.round(open.addon * REVENUE_SHARE)
+              return (
+                <div className="split">
+                  <h3 className="sheet-section">Your net income</h3>
+                  <div className="lines">
+                    <div className="line"><span>Invoice total</span><span className="amount">{thb(open.total)}</span></div>
+                    <div className="line"><span>Pay to {BRAND} ({100 - REVENUE_SHARE * 100}% of add-on)</span><span className="amount">−{thb(toBrand)}</span></div>
+                    <div className="line total"><span>Net income</span><span className="amount">{thb(open.total - toBrand)}</span></div>
+                  </div>
+                  <p className="caption">Includes your {REVENUE_SHARE * 100}% add-on share of {thb(Math.round(open.addon * REVENUE_SHARE))}.</p>
                 </div>
-              </div>
-            )}
+              )
+            })()}
           </div>
           <div className="sheet-foot">
             <button type="button" className="btn-d btn-outline" onClick={() => setOpenId(null)}>Close</button>

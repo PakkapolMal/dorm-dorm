@@ -463,7 +463,7 @@ a { color: var(--primary); }
 .pager { display: flex; align-items: center; gap: 16px; font-weight: 500; }
 .pager-per { display: flex; align-items: center; gap: 8px; }
 .pager-btns { display: flex; gap: 4px; }
-.stat-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 16px 24px; gap: 16px; }
+.stat-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); padding: 16px 24px; gap: 16px; }
 .stat-strip small { display: block; font-size: 13px; color: var(--text-muted); }
 .stat-strip strong { font-size: 20px; font-weight: 600; }
 .stat-strip > div + div { border-left: 1px solid var(--border); padding-left: 16px; }
