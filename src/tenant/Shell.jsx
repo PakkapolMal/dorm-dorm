@@ -1,5 +1,5 @@
 import { ChevronLeft, ShoppingCart, ShoppingBag, House, Receipt, CircleHelp, CircleCheck, TriangleAlert } from 'lucide-react'
-import { BRAND } from '../data.js'
+import { BRAND, LOGO } from '../data.js'
 import { useStore } from '../store.jsx'
 
 const TABS = [
@@ -18,7 +18,7 @@ export function Page({ tab, back, action, flush, children }) {
         {back
           ? <a className="icon-btn" href={back} aria-label="Back"><ChevronLeft size={22} /></a>
           : <span />}
-        <a className="logo" href="#/tenant">{BRAND}</a>
+        <a className="logo" href="#/tenant"><img src={LOGO} alt="" width="26" height="26" />{BRAND}</a>
         <a className="icon-btn" href="#/tenant/cart" aria-label={`Cart, ${cartItems.length} items`}>
           <ShoppingCart size={22} />
           {cartItems.length > 0 && <span className="cart-count" aria-hidden="true">{cartItems.length}</span>}

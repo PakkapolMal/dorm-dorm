@@ -7,6 +7,8 @@ export const BRAND = 'dorm-dorm'
 const IMG = import.meta.env.BASE_URL + 'images/'
 
 export const HERO_IMAGE = IMG + 'room/hero.webp'
+// Brand mark (no text: the name stays live text from BRAND). favicon.svg is the small-size version.
+export const LOGO = import.meta.env.BASE_URL + 'logo-mark.svg'
 
 export const ADDON_CAP = 1500
 export const SETUP_FEE = 300
@@ -161,16 +163,12 @@ export const TAKEOVER_ROOM = {
 }
 
 // Mock electricity/water so bills look real.
+// Only our add-on lines; rent, water and electricity are the dorm's own charges.
 export function billsFor(sub, months = 3) {
+  if (!sub) return []
   return Array.from({ length: months }, (_, i) => {
     const date = new Date(today.getFullYear(), today.getMonth() - i, 1)
-    const addon = sub ? sub.productIds.reduce((s, id) => s + getProduct(id).price, 0) : 0
-    const lines = [
-      { label: 'Room rent', amount: BASE_RENT },
-      { label: 'Water', amount: 150 },
-      { label: 'Electricity', amount: [728, 812, 665][i % 3] },
-    ]
-    if (addon) lines.push({ label: `${BRAND} add-on`, amount: addon, addon: true })
+    const lines = sub.productIds.map((id) => ({ label: getProduct(id).name, amount: getProduct(id).price }))
     // Due on the 5th of the following month, so the current bill is upcoming, not overdue.
     return { id: date.toISOString().slice(0, 7), date, due: new Date(date.getFullYear(), date.getMonth() + 1, 5), lines, paid: i > 0 }
   })
@@ -298,7 +296,7 @@ export const totalLossFee = (sku, months) =>
 export const invoiceMonths = (count = 3) =>
   Array.from({ length: count }, (_, i) => new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1))
 
-// Room invoices for one property, `i` months back. Same lines as the tenant's billsFor().
+// Room invoices for one property, `i` months back.
 export function invoicesFor(rooms, dorm, i) {
   const date = new Date(TODAY.getFullYear(), TODAY.getMonth() - i, 1)
   const due = new Date(date.getFullYear(), date.getMonth() + 1, 5)

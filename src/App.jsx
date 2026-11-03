@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { GraduationCap, Building2, Truck, ChevronRight } from 'lucide-react'
-import { BRAND, getProduct } from './data.js'
+import { BRAND, LOGO, getProduct } from './data.js'
 import { StoreProvider, useRoute } from './store.jsx'
 import { Home, Catalog, Item, Cart, Checkout, Confirmed, Takeover, NotFound } from './tenant/shop.jsx'
 import { Room, Issue, Exit, Buyout, Bills, Help } from './tenant/room.jsx'
@@ -13,6 +13,7 @@ function RolePicker() {
   return (
     <div className="picker">
       <div className="picker-card">
+        <img src={LOGO} alt="" width="56" height="56" style={{ display: 'block', marginBottom: 12 }} />
         <h1>{BRAND}</h1>
         <p className="muted">Prototype. Choose a view to explore.</p>
         <div className="role-list">

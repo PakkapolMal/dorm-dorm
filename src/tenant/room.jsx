@@ -428,35 +428,26 @@ export function Buyout() {
 export function Bills() {
   const { subscription } = useStore()
   const bills = billsFor(subscription)
-  const [open, setOpen] = useState(bills[0].id)
   return (
     <Page tab="bills">
       <h1 className="page-title">Bills</h1>
-      <p className="caption" style={{ marginTop: 4 }}>Your {BRAND} add-ons are billed on your monthly room invoice.</p>
+      <p className="caption" style={{ marginTop: 4 }}>Your {BRAND} add-on charges. Rent, water and electricity are billed by your dorm.</p>
+      {bills.length === 0 && <p className="caption" style={{ marginTop: 20 }}>No {BRAND} bills yet.</p>}
       <div className="stack-sm" style={{ marginTop: 20 }}>
         {bills.map((b) => {
           const total = b.lines.reduce((s, l) => s + l.amount, 0)
-          const isOpen = open === b.id
           return (
             <div className="card" key={b.id} style={{ padding: 0 }}>
-              <button className="acc-row" style={{ padding: '12px 16px', borderBottom: isOpen ? '1px solid var(--border)' : 0 }}
-                aria-expanded={isOpen} onClick={() => setOpen(isOpen ? null : b.id)}>
-                <span className="grow">
-                  <span>{b.date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</span>
-                  <small className="num">{thb(total)}</small>
-                </span>
+              <div className="acc-row" style={{ padding: '12px 16px', cursor: 'default' }}>
+                <span className="grow"><span>{b.date.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</span></span>
                 <Badge tone={b.paid ? 'success' : 'warning'}>{b.paid ? 'Paid' : `Due ${fmtDate(b.due)}`}</Badge>
-                <ChevronRight size={18} className="chev" aria-hidden="true" style={{ transform: isOpen ? 'rotate(90deg)' : 'none' }} />
-              </button>
-              {isOpen && (
-                <div className="lines" style={{ padding: 16 }}>
-                  {b.lines.map((l) => (
-                    <div className={`line ${l.addon ? 'hl' : ''}`} key={l.label}><span>{l.label}</span><span className="amount">{thb(l.amount)}</span></div>
-                  ))}
-                  <div className="line total"><span>Total</span><span className="amount">{thb(total)}</span></div>
-                  <p className="caption">Pay at your dorm office, as usual.</p>
-                </div>
-              )}
+              </div>
+              <div className="lines" style={{ padding: 16 }}>
+                {b.lines.map((l) => (
+                  <div className="line" key={l.label}><span>{l.label}</span><span className="amount">{thb(l.amount)}</span></div>
+                ))}
+                {b.lines.length > 1 && <div className="line total"><span>Total</span><span className="amount">{thb(total)}</span></div>}
+              </div>
             </div>
           )
         })}

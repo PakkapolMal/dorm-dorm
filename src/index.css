@@ -59,7 +59,7 @@ a { color: var(--primary); }
 /* ---------- Tenant phone shell (§4) ---------- */
 .phone { width: 390px; max-width: 100%; min-height: 100vh; margin: 0 auto; background: var(--surface); position: relative; display: flex; flex-direction: column; font-size: 15px; line-height: 1.5; box-shadow: 0 0 0 1px var(--border); }
 .topbar { position: sticky; top: 0; z-index: 20; height: 56px; display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; padding: 0 4px; background: var(--surface); border-bottom: 1px solid var(--border); }
-.topbar .logo { justify-self: center; padding: 0 12px; line-height: 44px; font-weight: 700; font-size: 18px; letter-spacing: -.01em; color: var(--text); text-decoration: none; }
+.topbar .logo { justify-self: center; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; line-height: 44px; font-weight: 700; font-size: 18px; letter-spacing: -.01em; color: var(--text); text-decoration: none; }
 .icon-btn { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: none; border-radius: 999px; cursor: pointer; color: var(--text); position: relative; text-decoration: none; }
 .icon-btn:hover { background: var(--surface-muted); }
 .cart-count { position: absolute; top: 4px; right: 2px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--accent-soft); color: var(--on-accent-soft); font-size: 11px; font-weight: 700; display: grid; place-items: center; }
@@ -300,7 +300,7 @@ a { color: var(--primary); }
 .side .pop { display: block; }
 .switcher { width: 100%; height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 8px; border: 0; border-radius: 8px; background: none; text-align: left; cursor: pointer; }
 .switcher:hover, .switcher[aria-expanded='true'] { background: var(--surface); }
-.logo-mark { width: 32px; height: 32px; flex: 0 0 auto; border-radius: 8px; background: var(--primary); color: var(--on-primary); display: grid; place-items: center; font-weight: 700; font-size: 16px; }
+.logo-mark { width: 32px; height: 32px; flex: 0 0 auto; display: block; }
 .switcher-text, .user-text { flex: 1; min-width: 0; display: grid; }
 .switcher-text strong, .user-text strong { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .switcher-text small, .user-text small { font-size: 12px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

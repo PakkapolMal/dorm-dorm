@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { PanelLeft, Bell, Search, ChevronsUpDown, ArrowLeftRight, CircleCheck, TriangleAlert, ChevronRight } from 'lucide-react'
-import { BRAND } from '../data.js'
+import { LOGO } from '../data.js'
 import { Avatar } from '../ui.jsx'
 import { useStore } from '../store.jsx'
 
@@ -74,7 +74,7 @@ export function Shell({ page, nav, crumbs, switcher, search, notifs, user, child
     <div className={`dash ${collapsed ? 'collapsed' : ''}`}>
       <aside className="side" aria-label="Sidebar">
         <Popover label={switcher.label} className="switcher" button={<>
-          <span className="logo-mark" aria-hidden="true">{BRAND[0]}</span>
+          <img className="logo-mark" src={LOGO} alt="" width="32" height="32" />
           <span className="switcher-text"><strong>{switcher.title}</strong><small>{switcher.role}</small></span>
           <ChevronsUpDown size={16} className="switcher-chev" aria-hidden="true" />
         </>}>
