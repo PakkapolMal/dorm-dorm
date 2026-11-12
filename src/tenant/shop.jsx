@@ -8,7 +8,7 @@ import { useStore, go } from '../store.jsx'
 import { Page, ActionBar } from './Shell.jsx'
 import { ProductTile, Badge, Banner, Benefits, Option, Sheet, Stepper, ItemThumb, Photo, Icons, Gallery, CompareSlider } from '../ui.jsx'
 
-const BENEFITS = ['Free delivery and setup on wave days', 'Maintenance and repairs included', 'Manufacturer warranty covered']
+const BENEFITS = ['Free delivery and setup on delivery days', 'Maintenance and repairs included', 'Manufacturer warranty covered']
 
 function useQuickAdd() {
   const { addToCart, showToast } = useStore()
@@ -274,7 +274,7 @@ export function Item({ id }) {
           )
         ) : (
           <ul className="benefits">
-            <li><Truck size={16} />Free delivery and setup on Wed / Sat wave days</li>
+            <li><Truck size={16} />Free delivery and setup on Wed / Sat delivery days</li>
             <li><Wrench size={16} />Repairs for faults are free. Normal wear is never charged.</li>
             <li><ShieldCheck size={16} />Refundable deposit of about 1 month, returned 3–5 business days after pickup</li>
             <li><Info size={16} />Minimum 6 months. Leaving early? Transfer to the next tenant for free.</li>

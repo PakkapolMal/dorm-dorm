@@ -353,7 +353,7 @@ export function Exit() {
       <div style={{ marginTop: 16 }}>
         <Banner tone="info" icon={path === 'transfer' ? Users : path === 'relocate' ? Truck : Undo2}>
           {path === 'transfer' && 'Transfers are free. The contract simply moves to the new tenant.'}
-          {path === 'relocate' && 'We move your items on the next wave day after your notice period.'}
+          {path === 'relocate' && 'We move your items on the next delivery day after your notice period.'}
           {path === 'return' && 'We inspect the items at pickup. Your deposit balance is refunded within 3–5 business days.'}
         </Banner>
       </div>
