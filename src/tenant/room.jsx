@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Wrench, LogOut, Tag, FileText, ChevronRight, House, CircleCheck, Info, ArrowRightLeft, Truck, Undo2, MessageCircle, Users } from 'lucide-react'
+import { Wrench, LogOut, Tag, FileText, ChevronRight, House, CircleCheck, Info, ArrowRightLeft, Truck, Undo2, Users } from 'lucide-react'
 import {
   SKUS, getProduct, thb, PARTNER_DORMS, depositFor, fmtDate, addMonths, addDays, monthsBetween, NOTICE_DAYS,
   RETRIEVAL_FEE, RELOCATION_FEE, BUYOUT_AFTER_MONTHS, BUYOUT_RATE, DAMAGE_FEES, NORMAL_WEAR, SCENARIOS, billsFor, BRAND, SETUP_FEE, TODAY,
@@ -463,7 +463,7 @@ export function Help() {
     <Page tab="help">
       <h1 className="page-title">Help</h1>
       <div className="card row" style={{ marginTop: 20 }}>
-        <MessageCircle size={24} color="var(--primary)" aria-hidden="true" />
+        <img src={import.meta.env.BASE_URL + 'images/line.png'} width="32" height="32" alt="" />
         <div className="grow" style={{ flex: 1 }}>
           <div style={{ fontWeight: 600 }}>Chat with us on LINE</div>
           <div className="caption">@{BRAND} · replies within 1 business day</div>

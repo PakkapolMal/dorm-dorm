@@ -83,3 +83,5 @@ Avatar photos for the landlord and operator pages are in `public/images/people/`
 | `people/varit.webp` | Varit Y. (tenant, Lotus Place / Phahon Student House, operator pages) | mhmd Doo | https://unsplash.com/photos/a-man-with-a-scarf-around-his-neck--HBKndM8j5A | Unsplash |
 
 The photos are illustrative only. The products shown are not the exact models listed in OVERVIEW.md, and dorm-dorm has no affiliation with the photographers or brands.
+
+The LINE app icon (`line.png`, Help page contact card) is a trademark of LY Corporation, supplied by the project team and used only to show the LINE contact channel.
