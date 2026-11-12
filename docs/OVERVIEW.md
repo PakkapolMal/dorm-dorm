@@ -4,11 +4,11 @@ Source: business-model report (Gemini share, "Residential Add-On Subscriptions i
 
 ## What it is
 
-A monthly **furniture and appliance add-on subscription** for tenants of budget dormitories. A tenant in a ~3,500 THB/month dorm room rents condo-grade items (2-door fridge, microwave, ergonomic chair, standing desk, air purifier) for 190–990 THB/month. That is far cheaper than moving to a condo (7,500+ THB/month plus a 22,500–36,000 THB upfront deposit and a 12-month lease).
+A monthly **furniture and appliance add-on subscription** for tenants of budget dormitories. A tenant in a ~3,500 THB/month dorm room rents condo-grade items (2-door fridge, microwave, ergonomic chair, standing desk, air purifier) for 220–890 THB/month. That is far cheaper than moving to a condo (7,500+ THB/month plus a 22,500–36,000 THB upfront deposit and a 12-month lease).
 
 - **Launch market:** dorms in the Rangsit / Pathum Thani university corridor (Thammasat Rangsit, Bangkok University, Rangsit University). Partner dorms rent at 3,000–4,200 THB/month.
 - **Channel: B2B2C, through dorm landlords.** It is not sold direct-to-consumer. Landlords are partners.
-- **Pitch to tenants:** "Upgrade your dorm to condo comfort for +490–990 THB/month. No condo deposit, no moving hassle when you graduate."
+- **Pitch to tenants:** "Upgrade your dorm to condo comfort for +490–890 THB/month. No condo deposit, no moving hassle when you graduate."
 
 ## Actors (likely prototype roles)
 
@@ -26,8 +26,8 @@ Tenant communication channel: a **LINE Official Account** (for example, early-te
 
 | SKU | Example models | Price (THB/mo) |
 |---|---|---|
-| 2-Door Inverter Fridge (5.6–6.6 cu.ft.) | Hitachi HRTN5198, Haier HRF-185MN, Hisense 5.6Q | 390 |
-| Microwave (20L, 700–800W) | Sharp R-S20M6TA, Electrolux EMM20K22B | 190 |
+| 2-Door Inverter Fridge (5.6–6.6 cu.ft.) | Hitachi HRTN5198, Haier HRF-185MN, Hisense 5.6Q | 450 |
+| Microwave (20L, 700–800W) | Sharp R-S20M6TA, Electrolux EMM20K22B | 230 |
 | Ergonomic Mesh Chair | Sihoo M18 | 290 |
 | Electric Standing Desk (120 cm) | Amo Design, Nubwo, Ergomaker | 350 |
 | Smart Air Purifier (16–27 sq.m.) | Xiaomi Smart Air Purifier 4 Compact | 220 |
@@ -36,17 +36,17 @@ Tenant communication channel: a **LINE Official Account** (for example, early-te
 
 | Bundle | Contents | Price (THB/mo) | Discount vs. separate |
 |---|---|---|---|
-| **Living Basic** | Fridge + Microwave | 490 | −90 |
-| **Study / Work Pro** | Ergonomic Chair + Standing Desk | 590 | −50 |
-| **Complete Living** | Fridge + Microwave + Ergonomic Chair + Air Purifier | 990 | −100 |
+| **Living Set** | Fridge + Microwave | 590 | −90 |
+| **Work Set** | Ergonomic Chair + Standing Desk | 490 | −150 |
+| **Full Combo** | Fridge + Microwave + Ergonomic Chair + Air Purifier | 890 | −300 |
 
-Marketing leads with **Living Basic** and **Study/Work Pro**.
+Marketing leads with **Living Set** and **Work Set**.
 
 ### Pricing rules (useful for UI copy and validation)
 
-- Single items cost about 5–11% of base rent. Bundles cost about 14–28%.
+- Single items cost about 6–13% of base rent. Bundles cost about 14–25%.
 - **Total add-ons per tenant should stay ≤ 1,500 THB/month.** Above that, a mid-tier serviced apartment becomes the better deal.
-- Comparison anchor for the UI: dorm + Complete Living = 4,490 THB/month, vs. the cheapest condo at 7,500 THB/month (40–50% cheaper). Another anchor: a 0% 10-month card installment on a fridge costs ~599 THB/month, vs. 390 THB/month here with maintenance included.
+- Comparison anchor for the UI: dorm + Full Combo = 4,390 THB/month, vs. the cheapest condo at 7,500 THB/month (40–50% cheaper). Another anchor: a 0% 10-month card installment on a fridge costs ~599 THB/month, vs. 450 THB/month here with maintenance included.
 - Air purifier filter: a 390 THB annual renewal, **or** a +35 THB/month "air-care" surcharge. Open decision.
 
 ## Contract terms and fees

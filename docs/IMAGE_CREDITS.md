@@ -13,9 +13,9 @@ All photos are in `public/images/` (product and room photos in `room/`, people i
 | `room/desk.webp` | Electric Standing Desk | ergonofis | https://unsplash.com/photos/wooden-standing-desk-in-home-office-tdnYk4qOGhc | Unsplash |
 | `room/purifier.webp` | Smart Air Purifier | VBreathe | https://unsplash.com/photos/a-white-cylindrical-object-with-a-black-top-and-bottom-M4OilrUTWyc | Unsplash |
 | `room/hero.webp` | Tenant home hero | Spacejoy | https://unsplash.com/photos/a-bedroom-with-a-bed-and-a-desk-808a4AWu8jE | Unsplash |
-| `room/living-basic.webp` | Living Basic bundle | Fred Kleber | https://unsplash.com/photos/white-top-mount-refrigerator-beside-white-microwave-oven-zLSOhQZ4oi8 | Unsplash |
-| `room/study-pro.webp` | Study / Work Pro bundle | ONNO | https://unsplash.com/photos/a-chair-and-a-desk-3pOXfTAWtCk | Unsplash |
-| `room/complete-living.webp` | Complete Living bundle | deborah cortelazzi | https://unsplash.com/photos/tidy-room-filled-with-furnitures-gREquCUXQLI | Unsplash |
+| `room/living-basic.webp` | Living Set bundle | Fred Kleber | https://unsplash.com/photos/white-top-mount-refrigerator-beside-white-microwave-oven-zLSOhQZ4oi8 | Unsplash |
+| `room/study-pro.webp` | Work Set bundle | ONNO | https://unsplash.com/photos/a-chair-and-a-desk-3pOXfTAWtCk | Unsplash |
+| `room/complete-living.webp` | Full Combo bundle | deborah cortelazzi | https://unsplash.com/photos/tidy-room-filled-with-furnitures-gREquCUXQLI | Unsplash |
 | `room/empty.webp` | Room takeover slider, "Empty room" side. Full-size source: `docs/source/takeover-room-empty.jpg` (1600×1200) | Raphael Schaller | https://unsplash.com/photos/brown-wooden-chair-near-mattress-Cz_Xbm3Jyyw | Unsplash |
 | `room/furnished.webp` | Room takeover slider, "With add-ons" side. AI-edited from `room/empty.webp` (fridge and microwave added); full-size output: `docs/source/takeover-room-furnished.webp` | Raphael Schaller (original photo), AI-edited | https://unsplash.com/photos/brown-wooden-chair-near-mattress-Cz_Xbm3Jyyw | Unsplash (modification allowed) |
 

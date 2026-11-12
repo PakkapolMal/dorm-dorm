@@ -44,7 +44,7 @@ function BundleCard({ id }) {
         <div className="product-name" style={{ minHeight: 0, marginTop: 6, fontWeight: 600 }}>{b.name}</div>
         <div className="caption">{b.items.map((i) => SKUS[i].short).join(' + ')}</div>
         <div className="product-price price">{thbMo(b.price)}</div>
-        <div className="product-sub save">Save {bundleSaving(b)} THB/mo</div>
+        {bundleSaving(b) > 0 && <div className="product-sub save">Save {bundleSaving(b)} THB/mo</div>}
       </div>
       <QuickAdd id={id} />
     </a>
@@ -59,7 +59,7 @@ function SkuCard({ id }) {
       <ProductTile product={p} size={48}><QuickAdd id={id} /></ProductTile>
       <div className="product-name">{p.name}</div>
       <div className="product-price price">{thbMo(p.price)}</div>
-      {bundle && <div className="product-sub">or bundle &amp; save {bundleSaving(bundle)}</div>}
+      {bundle && bundleSaving(bundle) > 0 && <div className="product-sub">or bundle &amp; save {bundleSaving(bundle)}</div>}
     </a>
   )
 }
@@ -103,7 +103,7 @@ export function Home() {
           <h2 className="section-title">Dorm + add-ons vs. a condo</h2>
           <div className="compare" style={{ marginTop: 12 }}>
             <div className="compare-row"><span>Dorm room</span><span className="num">{thb(BASE_RENT)}</span></div>
-            <div className="compare-row"><span>+ Complete Living bundle</span><span className="num">{thb(complete)}</span></div>
+            <div className="compare-row"><span>+ {BUNDLES['complete-living'].name}</span><span className="num">{thb(complete)}</span></div>
             <div className="compare-row"><strong>Your total</strong><strong className="num">{thbMo(BASE_RENT + complete)}</strong></div>
             <div className="compare-row"><span className="muted">Cheapest nearby condo</span><span className="num muted">{CONDO_FLOOR.toLocaleString('en-US')}+ THB/mo</span></div>
             <p className="save" style={{ marginTop: 8, fontSize: 14 }}>
@@ -228,8 +228,8 @@ export function Item({ id }) {
       <h2 style={{ fontSize: 15, fontWeight: 600, margin: '20px 0 10px' }}>Choose your plan</h2>
       <div className="options" role="radiogroup" aria-label="Plan">
         <Option name="plan" value={id} checked={choice === id} onChange={setChoice}
-          label={p.kind === 'bundle' ? `Rent the ${p.name} bundle` : 'Rent this item'}
-          sub={p.kind === 'bundle' ? `Save ${bundleSaving(p)} THB/mo vs. separate` : undefined}
+          label={p.kind === 'bundle' ? `Rent the ${p.name}` : 'Rent this item'}
+          sub={p.kind === 'bundle' && bundleSaving(p) > 0 ? `Save ${bundleSaving(p)} THB/mo vs. separate` : undefined}
           price={thbMo(p.price)}>
           <Benefits items={BENEFITS} />
           {termSelect}
@@ -237,7 +237,7 @@ export function Item({ id }) {
         {containing.map((b) => (
           <Option key={b} name="plan" value={b} checked={choice === b} onChange={setChoice}
             label={`Get it in ${BUNDLES[b].name}`}
-            sub={`${BUNDLES[b].items.map((i) => SKUS[i].short).join(' + ')} · save ${bundleSaving(BUNDLES[b])} THB/mo`}
+            sub={BUNDLES[b].items.map((i) => SKUS[i].short).join(' + ') + (bundleSaving(BUNDLES[b]) > 0 ? ` · save ${bundleSaving(BUNDLES[b])} THB/mo` : '')}
             price={thbMo(BUNDLES[b].price)}>
             <Benefits items={BENEFITS} />
             {termSelect}

@@ -24,14 +24,14 @@ export const CONDO_FLOOR = 7500
 export const SKUS = {
   fridge: {
     image: IMG + 'room/fridge.webp',
-    name: '2-Door Inverter Fridge', short: 'Fridge', price: 390, retail: 5990, icon: Refrigerator, category: 'kitchen',
+    name: '2-Door Inverter Fridge', short: 'Fridge', price: 450, retail: 5990, icon: Refrigerator, category: 'kitchen',
     spec: '5.6–6.6 cu.ft. with separate freezer',
     models: 'Hitachi HRTN5198, Haier HRF-185MN, Hisense 5.6Q',
     warranty: 'Multi-year compressor warranty', warrantyMonths: 36,
   },
   microwave: {
     image: IMG + 'room/microwave.webp',
-    name: 'Microwave Oven 20L', short: 'Microwave', price: 190, retail: 1790, icon: Microwave, category: 'kitchen',
+    name: 'Microwave Oven 20L', short: 'Microwave', price: 230, retail: 1790, icon: Microwave, category: 'kitchen',
     spec: '20L, 700–800W',
     models: 'Sharp R-S20M6TA, Electrolux EMM20K22B',
     warranty: '1-year manufacturer warranty', warrantyMonths: 12,
@@ -62,17 +62,17 @@ export const SKUS = {
 export const BUNDLES = {
   'living-basic': {
     image: IMG + 'room/living-basic.webp',
-    name: 'Living Basic', price: 490, items: ['fridge', 'microwave'], badge: 'Popular', category: 'kitchen',
+    name: 'Living Set', price: 590, items: ['fridge', 'microwave'], badge: 'Popular', category: 'kitchen',
     tagline: 'Cook and keep food fresh',
   },
   'study-pro': {
     image: IMG + 'room/study-pro.webp',
-    name: 'Study / Work Pro', price: 590, items: ['chair', 'desk'], badge: 'Popular', category: 'study',
+    name: 'Work Set', price: 490, items: ['chair', 'desk'], badge: 'Popular', category: 'study',
     tagline: 'A real desk setup for long study nights',
   },
   'complete-living': {
     image: IMG + 'room/complete-living.webp',
-    name: 'Complete Living', price: 990, items: ['fridge', 'microwave', 'chair', 'purifier'], badge: 'Best value', category: 'all',
+    name: 'Full Combo', price: 890, items: ['fridge', 'microwave', 'chair', 'purifier'], badge: 'Best value', category: 'all',
     tagline: 'Condo-grade comfort in your dorm room',
   },
 }
