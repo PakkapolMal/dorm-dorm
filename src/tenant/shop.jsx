@@ -105,10 +105,7 @@ export function Home() {
             <div className="compare-row"><span>Dorm room</span><span className="num">{thb(BASE_RENT)}</span></div>
             <div className="compare-row"><span>+ {BUNDLES['complete-living'].name}</span><span className="num">{thb(complete)}</span></div>
             <div className="compare-row"><strong>Your total</strong><strong className="num">{thbMo(BASE_RENT + complete)}</strong></div>
-            <div className="compare-row"><span className="muted">Cheapest nearby condo</span><span className="num muted">{CONDO_FLOOR.toLocaleString('en-US')}+ THB/mo</span></div>
-            <p className="save" style={{ marginTop: 8, fontSize: 14 }}>
-              You save {thbMo(CONDO_FLOOR - BASE_RENT - complete)}, and skip the 22,500+ THB condo deposit.
-            </p>
+            <div className="compare-row" style={{ color: 'red'}}><span>Cheapest nearby condo</span><strong className="num">{CONDO_FLOOR.toLocaleString('en-US')}+ THB/mo</strong></div>
           </div>
         </section>
 
