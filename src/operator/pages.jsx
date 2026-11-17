@@ -685,7 +685,7 @@ export function Partners() {
             <tr>
               <th>Dorm</th><th style={{ width: 136 }}>Cluster</th><th className="num-col" style={{ width: 120 }}>Rent</th><th className="num-col" style={{ width: 80 }}>Rooms</th>
               <th className="num-col" style={{ width: 112 }}>Upgraded</th><th className="num-col" style={{ width: 120 }}>Pre-upgraded</th>
-              <th className="num-col" style={{ width: 144 }}>Add-on revenue</th><th className="num-col" style={{ width: 152 }}>Dormitory {REVENUE_SHARE * 100}%</th>
+              <th className="num-col" style={{ width: 144 }}>Add-on revenue</th>
             </tr>
           </thead>
           <tbody>
@@ -698,7 +698,6 @@ export function Partners() {
                 <td className="num-col num">{d.upgraded}<small className="cell-sub">{Math.round((d.upgraded / d.total) * 100)}%</small></td>
                 <td className="num-col num">{d.vacant}</td>
                 <td className="num-col num">{thbMo(d.revenue)}</td>
-                <td className="num-col num">{thbMo(d.share)}</td>
               </tr>
             ))}
           </tbody>
@@ -709,7 +708,6 @@ export function Partners() {
               <td className="num-col num">{total('upgraded')}<small className="cell-sub">{Math.round((total('upgraded') / total('total')) * 100)}%</small></td>
               <td className="num-col num">{total('vacant')}</td>
               <td className="num-col num"><strong>{thbMo(total('revenue'))}</strong></td>
-              <td className="num-col num"><strong>{thbMo(total('share'))}</strong></td>
             </tr>
           </tfoot>
         </table>
