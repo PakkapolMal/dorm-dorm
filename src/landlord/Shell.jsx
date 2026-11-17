@@ -33,7 +33,7 @@ export function LandlordShell({ page, sub, children }) {
       crumbs={crumbsFor(page, sub, rooms)}
       user={LANDLORD}
       switcher={{
-        title: dormName(dorm), role: `${BRAND} · Landlord`, label: `Property: ${dormName(dorm)}. Switch property`, menuLabel: 'Properties',
+        title: dormName(dorm), role: `${BRAND} · Dormitory`, label: `Property: ${dormName(dorm)}. Switch property`, menuLabel: 'Properties',
         menu: (close) => <>
           <div className="menu-label">Properties</div>
           {LANDLORD.dorms.map((id) => (

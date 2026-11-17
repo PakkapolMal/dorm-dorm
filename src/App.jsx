@@ -24,7 +24,7 @@ function RolePicker() {
           </a>
           <a className="role" href="#/landlord">
             <Building2 size={24} color="var(--primary)" aria-hidden="true" />
-            <div><strong>Landlord</strong><span>Rooms, invoices and your revenue share (desktop)</span></div>
+            <div><strong>Dormitory</strong><span>Rooms, invoices and your revenue share (desktop)</span></div>
             <ChevronRight size={18} className="chev" aria-hidden="true" />
           </a>
           <a className="role" href="#/operator">

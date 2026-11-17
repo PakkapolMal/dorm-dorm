@@ -685,7 +685,7 @@ export function Partners() {
             <tr>
               <th>Dorm</th><th style={{ width: 136 }}>Cluster</th><th className="num-col" style={{ width: 120 }}>Rent</th><th className="num-col" style={{ width: 80 }}>Rooms</th>
               <th className="num-col" style={{ width: 112 }}>Upgraded</th><th className="num-col" style={{ width: 120 }}>Pre-upgraded</th>
-              <th className="num-col" style={{ width: 144 }}>Add-on revenue</th><th className="num-col" style={{ width: 152 }}>Landlord {REVENUE_SHARE * 100}%</th>
+              <th className="num-col" style={{ width: 144 }}>Add-on revenue</th><th className="num-col" style={{ width: 152 }}>Dormitory {REVENUE_SHARE * 100}%</th>
             </tr>
           </thead>
           <tbody>
